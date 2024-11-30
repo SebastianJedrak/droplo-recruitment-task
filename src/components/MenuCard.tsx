@@ -1,6 +1,7 @@
 import React from "react";
 import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
+import Card from "./UI/Card";
 
 const MenuCard: React.FC = () => {
   const menuList = [
@@ -16,7 +17,7 @@ const MenuCard: React.FC = () => {
     },
   ];
   return (
-    <div className="rounded-lg border-2 border-gray-300">
+    <Card>
       <ul>
         {menuList.map((item) => (
           <MenuItem key={item.id} title={item.title} link={item.link} />
@@ -25,7 +26,7 @@ const MenuCard: React.FC = () => {
       <div className="m-4">
         <Button title="Dodaj pozycję menu" type="secondary" />
       </div>
-    </div>
+    </Card>
   );
 };
 
