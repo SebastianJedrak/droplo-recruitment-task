@@ -24,7 +24,7 @@ const MenuCard: React.FC = () => {
         ))}
       </ul>
       <div className="m-4">
-        <Button title="Dodaj pozycję menu" type="secondary" />
+        <Button title="Dodaj pozycję menu" type="button" />
       </div>
     </Card>
   );

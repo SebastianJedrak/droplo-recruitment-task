@@ -4,13 +4,11 @@ import ButtonGroup from "./UI/ButtonGroup";
 import Badge from "./UI/Badge";
 
 interface MenuItemProps {
-  key: string;
   title: string;
   link: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
-  key,
   title,
   link,
 }) => {
@@ -28,9 +26,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
       </div>
       <ButtonGroup
         buttons={[
-          { title: "Usuń", type: "secondary" },
-          { title: "Edytuj", type: "secondary" },
-          { title: "Dodaj pozycję menu", type: "secondary" },
+          { title: "Usuń", type: "button" },
+          { title: "Edytuj", type: "button" },
+          { title: "Dodaj pozycję menu", type: "button" },
         ]}
       />
     </li>
