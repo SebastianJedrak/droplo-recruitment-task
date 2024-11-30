@@ -4,6 +4,7 @@ import React from "react";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { FiSearch } from "react-icons/fi";
 
 interface FormFields {
   menu: string;
@@ -24,17 +25,31 @@ const EditMenuItem: React.FC = () => {
           <label htmlFor="menu" className="block">
             Menu
           </label>
-          <input id="menu" type="text" {...register("menu")} />
+          <input
+            id="menu"
+            type="text"
+            placeholder="np. Promocje"
+            {...register("menu")}
+            className="w-full pl-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
         </div>
 
         <div>
           <label htmlFor="link" className="block">
             Link
           </label>
-          <input id="link" type="text" {...register("link")} />
+          <div className="relative">
+            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              id="link"
+              type="text"
+              placeholder="Wklej lub wyszukaj"
+              className="w-full pl-8 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
         </div>
 
-        <div className="flex justify-end space-x-2">
+        <div className="flex space-x-2">
           <Button title="Anuluj" type="button" />
           <Button title="Dodaj" type="submit" />
         </div>
