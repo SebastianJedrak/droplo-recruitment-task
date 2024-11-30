@@ -10,8 +10,8 @@ import { FiSearch } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const schema = z.object({
-  menu: z.string().min(1, "Menu is required"),
-  link: z.string().min(1, "Link is required"),
+  menu: z.string().min(1, "Menu jest wymagane"),
+  link: z.string().min(1, "Link jest wymagany"),
 });
 
 type FormFields = z.infer<typeof schema>;
@@ -28,7 +28,7 @@ const EditMenuItem: React.FC = () => {
   };
 
   return (
-    <Card>
+    <Card backgroundColor="white">
       <div className="flex">
         <form
           onSubmit={handleSubmit(onSubmit)}

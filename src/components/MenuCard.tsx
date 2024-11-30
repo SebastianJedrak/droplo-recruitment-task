@@ -17,7 +17,7 @@ const MenuCard: React.FC = () => {
     },
   ];
   return (
-    <Card>
+    <Card backgroundColor="white">
       <ul>
         {menuList.map((item) => (
           <MenuItem key={item.id} title={item.title} link={item.link} />
