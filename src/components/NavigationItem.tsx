@@ -1,9 +1,15 @@
 import React from 'react';
 
-const NavigationItem: React.FC = () => {
+interface NavigationItemProps {
+    key: string;
+    title: string;
+    link: string;
+  }
+
+const NavigationItem: React.FC<NavigationItemProps> = ({key, title, link}) => {
   return (
     <li>
-      NavigationItem
+      NavigationItem - {key} {title} {link}
     </li>
   );
 };

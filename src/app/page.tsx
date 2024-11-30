@@ -1,3 +1,7 @@
+import NavigationCard from "@/components/NavigationCard";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  return <div>
+    <NavigationCard />
+  </div>;
 }
