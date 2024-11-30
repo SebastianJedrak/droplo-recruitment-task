@@ -4,16 +4,25 @@ import React from "react";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { FiSearch } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-interface FormFields {
-  menu: string;
-  link: string;
-}
+const schema = z.object({
+  menu: z.string(),
+  link: z.string(),
+});
+
+type FormFields = z.infer<typeof schema>;
 
 const EditMenuItem: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormFields>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     console.log("Submitted data:", data);
@@ -60,7 +69,7 @@ const EditMenuItem: React.FC = () => {
           </div>
         </form>
         <div className="w-1/12 flex justify-end p-6">
-          <RiDeleteBin6Line className="fill-gray-500 size-4"/>
+          <RiDeleteBin6Line className="fill-gray-500 size-4" />
         </div>
       </div>
     </Card>
