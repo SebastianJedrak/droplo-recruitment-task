@@ -17,10 +17,10 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
   return (
     <li className="flex justify-between items-center border-b border-gray-300 px-4 py-2">
       <div className="flex items-center">
-        <RiDragMove2Fill />
+        <RiDragMove2Fill size={24} className="fill-gray-500 mr-2"/>
         <div>
           <div>
-            {title}
+            <span className="mr-2 font-bold">{title}</span>
             <Badge title="kolekcja" type="primary" />
           </div>
           <div>{link}</div>

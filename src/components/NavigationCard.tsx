@@ -22,7 +22,9 @@ const NavigationCard: React.FC = () => {
           <NavigationItem key={item.id} title={item.title} link={item.link} />
         ))}
       </ul>
-      <Button title="Dodaj pozycję menu" type="secondary" />
+      <div className="m-4">
+        <Button title="Dodaj pozycję menu" type="secondary" />
+      </div>
     </div>
   );
 };
