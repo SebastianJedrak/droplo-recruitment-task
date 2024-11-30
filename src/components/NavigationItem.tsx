@@ -1,5 +1,6 @@
 import React from "react";
 import { RiDragMove2Fill } from "react-icons/ri";
+import ButtonGroup from "./UI/ButtonGroup";
 
 interface NavigationItemProps {
   key: string;
@@ -26,26 +27,13 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
           <div>{link}</div>
         </div>
       </div>
-      <div className="inline-flex rounded-md shadow-sm" role="group">
-        <button
-          type="button"
-          className="px-4 py-2 border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white"
-        >
-          Usuń
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 border-t border-b border-gray-300 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white"
-        >
-          Edytuj
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-2 focus:ring-purple-700 focus:text-purple-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-purple-500 dark:focus:text-white"
-        >
-          Dodaj pozycję menu
-        </button>
-      </div>
+      <ButtonGroup
+        buttons={[
+          { title: "Usuń", type: "secondary" },
+          { title: "Edytuj", type: "secondary" },
+          { title: "Dodaj pozycję menu", type: "secondary" },
+        ]}
+      />
     </li>
   );
 };
