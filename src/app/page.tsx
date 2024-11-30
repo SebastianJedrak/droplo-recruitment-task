@@ -1,7 +1,7 @@
-import NavigationCard from "@/components/NavigationCard";
+import MenuCard from "@/components/MenuCard";
 
 export default function Home() {
   return <div>
-    <NavigationCard />
+    <MenuCard />
   </div>;
 }

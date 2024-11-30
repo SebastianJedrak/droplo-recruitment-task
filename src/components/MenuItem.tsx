@@ -3,13 +3,13 @@ import { RiDragMove2Fill } from "react-icons/ri";
 import ButtonGroup from "./UI/ButtonGroup";
 import Badge from "./UI/Badge";
 
-interface NavigationItemProps {
+interface MenuItemProps {
   key: string;
   title: string;
   link: string;
 }
 
-const NavigationItem: React.FC<NavigationItemProps> = ({
+const MenuItem: React.FC<MenuItemProps> = ({
   key,
   title,
   link,
@@ -37,4 +37,4 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
   );
 };
 
-export default NavigationItem;
+export default MenuItem;

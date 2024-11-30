@@ -1,9 +1,9 @@
 import React from "react";
-import NavigationItem from "./NavigationItem";
+import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
 
-const NavigationCard: React.FC = () => {
-  const navigationList = [
+const MenuCard: React.FC = () => {
+  const menuList = [
     {
       id: "1",
       title: "Promocje",
@@ -18,8 +18,8 @@ const NavigationCard: React.FC = () => {
   return (
     <div className="rounded-lg border-2 border-gray-300">
       <ul>
-        {navigationList.map((item) => (
-          <NavigationItem key={item.id} title={item.title} link={item.link} />
+        {menuList.map((item) => (
+          <MenuItem key={item.id} title={item.title} link={item.link} />
         ))}
       </ul>
       <div className="m-4">
@@ -29,4 +29,4 @@ const NavigationCard: React.FC = () => {
   );
 };
 
-export default NavigationCard;
+export default MenuCard;
