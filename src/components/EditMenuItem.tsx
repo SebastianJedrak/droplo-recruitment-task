@@ -22,7 +22,7 @@ const EditMenuItem: React.FC = () => {
     <Card>
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
         <div>
-          <label htmlFor="menu" className="block">
+          <label htmlFor="menu" className="block mb-1 font-bold">
             Menu
           </label>
           <input
@@ -35,7 +35,7 @@ const EditMenuItem: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="link" className="block">
+          <label htmlFor="link" className="block mb-1 font-bold">
             Link
           </label>
           <div className="relative">
