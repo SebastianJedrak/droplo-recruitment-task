@@ -1,6 +1,7 @@
 import React from "react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import ButtonGroup from "./UI/ButtonGroup";
+import Badge from "./UI/Badge";
 
 interface NavigationItemProps {
   key: string;
@@ -20,9 +21,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
         <div>
           <div>
             {title}
-            <span className="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-              kolekcja
-            </span>
+            <Badge title="kolekcja" type="primary" />
           </div>
           <div>{link}</div>
         </div>
