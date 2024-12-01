@@ -3,7 +3,12 @@ import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 
-const MenuCard: React.FC = () => {
+interface MenuCardType {
+  menu: any;
+}
+
+const MenuCard: React.FC<MenuCardType> = ({menu}) => {
+  console.log(menu)
   const menuList = [
     {
       id: "1",
@@ -19,8 +24,8 @@ const MenuCard: React.FC = () => {
   return (
     <Card backgroundColor="white">
       <ul>
-        {menuList.map((item) => (
-          <MenuItem key={item.id} title={item.title} link={item.link} />
+        {menu.menuItems.map((item: any) => (
+          <MenuItem key={item.id} label={item.label} url={item.url} />
         ))}
       </ul>
       <div className="m-4">

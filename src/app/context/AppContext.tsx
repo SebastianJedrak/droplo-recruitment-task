@@ -13,8 +13,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [menus, setMenus] = useState<
-    { id: string; label: string; url: string | undefined }[]
-  >([]);
+    { id: string; menuItems: [{ id: string; label: string; url: string }] }[]
+  >([
+    { id: "1", menuItems: [{ id: "11", label: "test", url: "test" }] },
+    { id: "2", menuItems: [{ id: "12", label: "test2", url: "test2" }] },
+  ]);
 
   return (
     <AppContext.Provider value={{ menus, setMenus }}>

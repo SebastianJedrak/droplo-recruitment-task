@@ -23,8 +23,8 @@ export default function Home() {
       {newMenuForms.map((menuForm) => (
         <EditMenuItem key={menuForm.id} id={menuForm.id} />
       ))}
-      {menus.map((menus: any) => (
-        <MenuCard key={menus.id}/>
+      {menus.map((menus: any, index: any) => (
+        <MenuCard key={index} menu={menus}/>
       ))}
     </>
   );
