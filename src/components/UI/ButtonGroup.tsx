@@ -2,7 +2,11 @@ import React from "react";
 import Button from "./Button";
 
 interface ButtonGroupProps {
-  buttons: { title: string; type: string }[];
+  buttons: {
+    title: string;
+    type: "button" | "reset" | "submit" | undefined;
+    payload?: () => void;
+  }[];
 }
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons }) => {

@@ -1,14 +1,12 @@
 import React from "react";
 import Card from "./UI/Card";
 import Button from "./UI/Button";
-import Link from "next/link";
 
 interface AddMenuItemProps {
-  action: string;
-  payload?: ()=>void
+  payload?: () => void;
 }
 
-const AddMenuItem: React.FC<AddMenuItemProps> = ({ action, payload }) => {
+const AddMenuItem: React.FC<AddMenuItemProps> = ({ payload }) => {
   return (
     <Card backgroundColor="gray">
       <div className="flex flex-col items-center py-6">
@@ -17,15 +15,7 @@ const AddMenuItem: React.FC<AddMenuItemProps> = ({ action, payload }) => {
           <span>W tym menu jeszcze nie ma żadnych linków</span>
         </div>
 
-        {action === "redirect" && (
-          <Link href="/add-menu">
-            <Button title="Dodaj pozycję menu" type="button" />
-          </Link>
-        )}
-
-        {action === "addMenu" && (
-          <Button title="Dodaj pozycję menu" type="button" payload={payload}/>
-        )}
+        <Button title="Dodaj pozycję menu" type="button" payload={payload} />
       </div>
     </Card>
   );
