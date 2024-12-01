@@ -5,9 +5,10 @@ import Link from "next/link";
 
 interface AddMenuItemProps {
   action: string;
+  payload?: ()=>void
 }
 
-const AddMenuItem: React.FC<AddMenuItemProps> = ({ action }) => {
+const AddMenuItem: React.FC<AddMenuItemProps> = ({ action, payload }) => {
   return (
     <Card backgroundColor="gray">
       <div className="flex flex-col items-center py-6">
@@ -23,7 +24,7 @@ const AddMenuItem: React.FC<AddMenuItemProps> = ({ action }) => {
         )}
 
         {action === "addMenu" && (
-          <Button title="Dodaj pozycję menu" type="button" />
+          <Button title="Dodaj pozycję menu" type="button" payload={payload}/>
         )}
       </div>
     </Card>

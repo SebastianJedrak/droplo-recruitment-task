@@ -14,7 +14,7 @@ export default function AddMenu() {
 
   return (
     <GlobalContainer backgroundColor="gray">
-      <AddMenuItem action="addMenu" />
+      <AddMenuItem action="addMenu" payload={addForm}/>
       {forms.map((form) => {
         return (
           <div key={form.id}>
@@ -22,7 +22,6 @@ export default function AddMenu() {
           </div>
         );
       })}
-      <button onClick={addForm}>Click</button>
     </GlobalContainer>
   );
 }
