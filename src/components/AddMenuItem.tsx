@@ -3,7 +3,7 @@ import Card from "./UI/Card";
 import Button from "./UI/Button";
 
 interface AddMenuItemProps {
-  payload?: () => void;
+  payload: () => void;
 }
 
 const AddMenuItem: React.FC<AddMenuItemProps> = ({ payload }) => {

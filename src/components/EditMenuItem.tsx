@@ -17,7 +17,11 @@ const schema = z.object({
 
 type FormFields = z.infer<typeof schema>;
 
-const EditMenuItem: React.FC = () => {
+interface EditMenuItemProps {
+  id: string;
+}
+
+const EditMenuItem: React.FC<EditMenuItemProps> = () => {
   const {
     register,
     handleSubmit,
