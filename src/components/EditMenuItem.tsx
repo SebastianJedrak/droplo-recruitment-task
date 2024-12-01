@@ -32,7 +32,10 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
   } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    setMenus((menus: any) => [...menus, { ...data, id: String(menus.length) }]);
+    setMenus((menus: any) => [
+      ...menus,
+      { id: String(menus.length), menuItems: [{...data, id: String(menus.length)}] },
+    ]);
   };
 
   return (
