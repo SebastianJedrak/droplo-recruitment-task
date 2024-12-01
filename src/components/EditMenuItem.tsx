@@ -35,8 +35,8 @@ const EditMenuItem: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="p-4 space-y-1 w-11/12"
         >
-          <InputMenu register={register} error={errors.menu?.message} />
-          <InputLink register={register} error={errors.link?.message} />
+          <InputMenu register={register} name="menu" error={errors.menu?.message} />
+          <InputLink register={register} name="link" error={errors.link?.message} />
 
           <div className="flex space-x-2">
             <Button title="Anuluj" type="button" />
