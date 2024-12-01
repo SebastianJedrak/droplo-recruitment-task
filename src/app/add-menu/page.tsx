@@ -1,9 +1,12 @@
 import EditMenuItem from "@/components/EditMenuItem";
 import AddMenuItem from "@/components/AddMenuItem";
+import GlobalContainer from "@/components/UI/GlobalContainer";
 
 export default function Home() {
-  return <div className="space-y-8 bg-gray-100">
-    <EditMenuItem />
-    <AddMenuItem action="addMenu"/>
-  </div>;
+  return (
+    <GlobalContainer backgroundColor="gray">
+      <EditMenuItem />
+      <AddMenuItem action="addMenu" />
+    </GlobalContainer>
+  );
 }

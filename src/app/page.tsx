@@ -1,11 +1,14 @@
 import MenuCard from "@/components/MenuCard";
 import EditMenuItem from "@/components/EditMenuItem";
 import AddMenuItem from "@/components/AddMenuItem";
+import GlobalContainer from "@/components/UI/GlobalContainer";
 
 export default function Home() {
-  return <div className="space-y-8">
-    <MenuCard />
-    <EditMenuItem />
-    <AddMenuItem action="redirect"/>
-  </div>;
+  return (
+    <GlobalContainer backgroundColor="white">
+      <MenuCard />
+      <EditMenuItem />
+      <AddMenuItem action="redirect" />
+    </GlobalContainer>
+  );
 }
