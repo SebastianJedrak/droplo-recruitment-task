@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import InputLabel from "./forms/InputLabel";
 import InputUrl from "./forms/InputUrl";
+import { useAppContext } from "@/app/context/AppContext";
 
 const schema = z.object({
   label: z.string().min(1, "Nazwa jest wymagane"),
@@ -21,7 +22,9 @@ interface EditMenuItemProps {
   id: string;
 }
 
-const EditMenuItem: React.FC<EditMenuItemProps> = ({id}) => {
+const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
+  const { menus, setMenus } = useAppContext();
+
   const {
     register,
     handleSubmit,
@@ -29,7 +32,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({id}) => {
   } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log("Submitted data:", data);
+    setMenus((menus: any) => [...menus, { ...data, id: String(menus.length) }]);
   };
 
   return (
@@ -39,8 +42,16 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({id}) => {
           onSubmit={handleSubmit(onSubmit)}
           className="p-4 space-y-1 w-11/12"
         >
-          <InputLabel register={register} name="label" error={errors.label?.message} />
-          <InputUrl register={register} name="url" error={errors.url?.message} />
+          <InputLabel
+            register={register}
+            name="label"
+            error={errors.label?.message}
+          />
+          <InputUrl
+            register={register}
+            name="url"
+            error={errors.url?.message}
+          />
 
           <div className="flex space-x-2">
             <Button title="Anuluj" type="button" />

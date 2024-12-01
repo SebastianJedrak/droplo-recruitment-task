@@ -7,7 +7,7 @@ import { useAppContext } from "./context/AppContext";
 import { useState } from "react";
 
 export default function Home() {
-  const { state, setState } = useAppContext();
+  const { menus, setMenus } = useAppContext();
 
   const [newMenuForms, setNewMenuForms] = useState<{ id: string }[]>([]);
   const addNewMenu = () => {
@@ -23,7 +23,9 @@ export default function Home() {
       {newMenuForms.map((menuForm) => (
         <EditMenuItem key={menuForm.id} id={menuForm.id} />
       ))}
-      <MenuCard />
+      {menus.map((menus: any) => (
+        <MenuCard key={menus.id}/>
+      ))}
     </>
   );
 }
