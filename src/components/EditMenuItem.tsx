@@ -7,12 +7,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import InputLink from "./forms/InputLink";
-import InputMenu from "./forms/InputMenu";
+import InputLabel from "./forms/InputLabel";
+import InputUrl from "./forms/InputUrl";
 
 const schema = z.object({
-  menu: z.string().min(1, "Menu jest wymagane"),
-  link: z.string().min(1, "Link jest wymagany"),
+  label: z.string().min(1, "Nazwa jest wymagane"),
+  url: z.string(),
 });
 
 type FormFields = z.infer<typeof schema>;
@@ -21,7 +21,7 @@ interface EditMenuItemProps {
   id: string;
 }
 
-const EditMenuItem: React.FC<EditMenuItemProps> = () => {
+const EditMenuItem: React.FC<EditMenuItemProps> = ({id}) => {
   const {
     register,
     handleSubmit,
@@ -39,8 +39,8 @@ const EditMenuItem: React.FC<EditMenuItemProps> = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="p-4 space-y-1 w-11/12"
         >
-          <InputMenu register={register} name="menu" error={errors.menu?.message} />
-          <InputLink register={register} name="link" error={errors.link?.message} />
+          <InputLabel register={register} name="label" error={errors.label?.message} />
+          <InputUrl register={register} name="url" error={errors.url?.message} />
 
           <div className="flex space-x-2">
             <Button title="Anuluj" type="button" />
