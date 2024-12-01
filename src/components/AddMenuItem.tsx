@@ -1,8 +1,13 @@
 import React from "react";
 import Card from "./UI/Card";
 import Button from "./UI/Button";
+import Link from "next/link";
 
-const AddMenuItem: React.FC = () => {
+interface AddMenuItemProps {
+  action: string;
+}
+
+const AddMenuItem: React.FC<AddMenuItemProps> = ({ action }) => {
   return (
     <Card backgroundColor="gray">
       <div className="flex flex-col items-center py-6">
@@ -11,7 +16,15 @@ const AddMenuItem: React.FC = () => {
           <span>W tym menu jeszcze nie ma żadnych linków</span>
         </div>
 
-        <Button title="Dodaj pozycję menu" type="button" />
+        {action === "redirect" && (
+          <Link href="/add-menu">
+            <Button title="Dodaj pozycję menu" type="button" />
+          </Link>
+        )}
+
+        {action === "addMenu" && (
+          <Button title="Dodaj pozycję menu" type="button" />
+        )}
       </div>
     </Card>
   );
