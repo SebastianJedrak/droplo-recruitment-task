@@ -9,6 +9,7 @@ import Button from "@/components/UI/Button";
 import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
 
 const schema = z.object({
   menus: z.array(
@@ -49,11 +50,13 @@ export default function AddMenu() {
 
   return (
     <GlobalContainer backgroundColor="gray">
-      <AddMenuItem action="addMenu" payload={addForm} />
-      <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-1 w-full">
+      <Link href="/">Wróć do listy nawigacji</Link>
+      <h1>Dodaj nawigację</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-1 w-full">
         {fields.map((item, index) => (
           <Card key={item.id} backgroundColor="white">
-            <div className="flex">
+            <div className="p-4">
+              <h3>Nazwa</h3>
               <InputMenu
                 register={register}
                 name={`menus.${index}.menu`}
@@ -67,6 +70,12 @@ export default function AddMenu() {
             </div>
           </Card>
         ))}
+        <Card backgroundColor="white">
+          <div className="p-4">
+            <h3>Pozycje menu</h3>
+            <AddMenuItem action="addMenu" payload={addForm} />
+          </div>
+        </Card>
         <div className="flex space-x-2">
           <Button title="Anuluj" type="button" />
           <Button title="Dodaj" type="submit" />
