@@ -4,7 +4,7 @@ interface ButtonProps {
   title: string;
   type: "button" | "reset" | "submit" | undefined;
   className?: string;
-  payload?: () => void;
+  payload?: (arg: any) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({ title, type, className, payload }) => {

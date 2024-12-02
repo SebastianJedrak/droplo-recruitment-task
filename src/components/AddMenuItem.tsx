@@ -14,7 +14,13 @@ const AddMenuItem: React.FC = () => {
           <span>W tym menu jeszcze nie ma żadnych linków</span>
         </div>
 
-        <Button title="Dodaj pozycję menu" type="button" payload={addNewMenu} />
+        <Button
+          title="Dodaj pozycję menu"
+          type="button"
+          payload={() => {
+            addNewMenu(null);
+          }}
+        />
       </div>
     </Card>
   );

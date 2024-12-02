@@ -9,7 +9,7 @@ interface AppContextType {
   addMenu: (data: MenuItemType) => void;
 
   newMenuForms: formsType;
-  addNewMenu: () => void;
+  addNewMenu: (parentId: string | null) => void;
   closeNewMenu: (id: string) => void;
 }
 
@@ -96,8 +96,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
-  const addNewMenu = () => {
-    setNewMenuForms((menuForms) => [...menuForms, { id: generateId() }]);
+  const addNewMenu = (parentId: string | null) => {
+    setNewMenuForms((menuForms) => [...menuForms, { id: generateId(), parentId: parentId }]);
   };
 
   const closeNewMenu = (id: string) => {
