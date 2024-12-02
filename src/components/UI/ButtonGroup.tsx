@@ -5,7 +5,7 @@ interface ButtonGroupProps {
   buttons: {
     title: string;
     type: "button" | "reset" | "submit" | undefined;
-    payload?: () => void;
+    payload?: (arg: any) => void;
   }[];
 }
 
@@ -17,6 +17,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons }) => {
           key={index}
           title={button.title}
           type={button.type}
+          payload={button.payload}
           className={`
             ${index === 0 ? "rounded-l-lg rounded-r-none" : ""} 
             ${

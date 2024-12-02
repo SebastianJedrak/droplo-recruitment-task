@@ -13,7 +13,7 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     <Card backgroundColor="white">
       <ul>
         {menu.subItems?.map((item) => (
-          <MenuItem key={item.id} label={item.label} url={item.url} />
+          <MenuItem key={item.id} id={item.id} label={item.label} url={item.url} />
         ))}
       </ul>
       <div className="m-4">

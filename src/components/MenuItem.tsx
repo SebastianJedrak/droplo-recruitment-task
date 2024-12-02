@@ -1,13 +1,18 @@
 import React from "react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import ButtonGroup from "./UI/ButtonGroup";
+import { useAppContext } from "@/context/AppContext";
+import EditMenuItem from "./EditMenuItem";
 
 interface MenuItemProps {
+  id: string;
   label: string;
   url?: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ label, url }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ id, label, url }) => {
+  const { newMenuForms, addNewMenu } = useAppContext();
+
   return (
     <li className="flex justify-between items-center border-b border-gray-300 px-4 py-2">
       <div className="flex items-center">
@@ -21,9 +26,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ label, url }) => {
         buttons={[
           { title: "Usuń", type: "button" },
           { title: "Edytuj", type: "button" },
-          { title: "Dodaj pozycję menu", type: "button" },
+          {
+            title: "Dodaj pozycję menu",
+            type: "button",
+            payload: () => {
+              addNewMenu(id);
+            },
+          },
         ]}
       />
+      {newMenuForms
+        .filter((menuForm) => menuForm.parentId === id)
+        .map((menuForm) => (
+          <EditMenuItem key={menuForm.id} id={menuForm.id} />
+        ))}
     </li>
   );
 };
