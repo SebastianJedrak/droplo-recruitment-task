@@ -186,7 +186,43 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const editMenuItem = (menuItem: MenuItemType, parentId: string) => {
-    console.log(menuItem);
+    const editRecursive = (items: MenuItemType[]): MenuItemType[] => {
+      return items.map((item) => {
+        if (item.id === menuItem.id) {
+          return menuItem;
+        }
+
+        if (item.subItems && item.subItems.length > 0) {
+          return {
+            ...item,
+            subItems: editRecursive(item.subItems),
+          };
+        }
+
+        return item; 
+      });
+    };
+
+    setMenus((menus: MenusType) => {
+      let itemFound = false;
+
+      const newMenus = menus.map((menu) => {
+        if (menu.id === menuItem.id) {
+          itemFound = true;
+          return menuItem; 
+        }
+        return menu;
+      });
+
+      if (!itemFound) {
+        return newMenus.map((menu) => ({
+          ...menu,
+          subItems: editRecursive(menu.subItems),
+        }));
+      }
+
+      return newMenus;
+    });
   };
 
   //Forms ctx
