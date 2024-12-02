@@ -114,24 +114,24 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         if (item.id === parentId) {
           return {
             ...item,
-            subItems: [...(item.subItems || []), data], 
+            subItems: [...(item.subItems || []), data],
           };
         }
-  
+
         if (item.subItems && item.subItems.length > 0) {
           return {
             ...item,
             subItems: addRecursive(item.subItems),
           };
         }
-  
+
         return item;
       });
     };
-  
+
     setMenus((menus: MenusType) => {
       let parentFound = false;
-  
+
       const newMenus = menus.map((menu) => {
         if (menu.id === parentId) {
           parentFound = true;
@@ -139,7 +139,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         }
         return menu;
       });
-  
+
       if (!parentFound) {
         return newMenus.map((menu) => {
           return {
@@ -148,14 +148,41 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
           };
         });
       }
-  
+
       return newMenus;
     });
   };
-  
+
   const deleteMenuItem = (id: string) => {
-    
-  }
+    setMenus((menus: MenusType) => {
+      const deleteRecursive = (items: MenuItemType[]): MenuItemType[] => {
+        return items
+          .map((item) => {
+            if (item.subItems && item.subItems.length > 0) {
+
+              const updatedSubItems = deleteRecursive(item.subItems);
+
+              if (updatedSubItems.length !== item.subItems.length) {
+                
+                return { ...item, subItems: updatedSubItems };
+              }
+            }
+
+            return item;
+          })
+          .filter((item) => item.id !== id); 
+      };
+
+      const newMenus = menus.map((menu) => {
+        return {
+          ...menu,
+          subItems: deleteRecursive(menu.subItems),
+        };
+      });
+
+      return newMenus;
+    });
+  };
 
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);

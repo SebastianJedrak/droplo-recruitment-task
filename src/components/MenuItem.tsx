@@ -11,7 +11,6 @@ interface MenuItemProps {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
-  console.log(depth);
   const { newMenuForms, addNewMenu, deleteMenuItem } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
