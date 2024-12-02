@@ -37,7 +37,13 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({ resolver: zodResolver(schema) });
+  } = useForm<FormFields>({
+    defaultValues: {
+      label: menuItem?.label || undefined,
+      url: menuItem?.url || undefined,
+    },
+    resolver: zodResolver(schema),
+  });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     if (parentId === null) addMenu({ ...data, id: generateId(), subItems: [] });
@@ -45,7 +51,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
       addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
     closeNewMenu(id);
   };
-console.log(menuItem)
+  console.log(menuItem);
   return (
     <Card backgroundColor="white">
       <div className="flex">
