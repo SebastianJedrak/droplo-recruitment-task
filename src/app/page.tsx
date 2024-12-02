@@ -6,6 +6,7 @@ import AddMenuItem from "@/components/AddMenuItem";
 import { useAppContext } from "../context/AppContext";
 import { useState } from "react";
 import { MenuType } from "@/types/menu";
+import { generateId } from "@/utils/generateId";
 
 export default function Home() {
   const { menus, setMenus } = useAppContext();
@@ -14,7 +15,7 @@ export default function Home() {
   const addNewMenu = () => {
     setNewMenuForms((menuForms) => [
       ...menuForms,
-      { id: String(menuForms.length) },
+      { id: generateId() },
     ]);
   };
 
