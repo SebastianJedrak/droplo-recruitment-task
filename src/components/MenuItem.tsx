@@ -47,6 +47,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem }) => {
           ))}
         </div>
       )}
+      <div className="pl-4">
+        {menuItem.subItems &&
+          menuItem.subItems.length > 0 &&
+          menuItem.subItems.map((nestedMenuItem) => (
+            <MenuItem key={nestedMenuItem.id} menuItem={nestedMenuItem} />
+          ))}
+      </div>
     </div>
   );
 };
