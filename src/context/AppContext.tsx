@@ -70,6 +70,13 @@ const sampleMenus: MenusType = [
             id: "3-2-1",
             label: "Dla Ciebie",
             url: "polecane.pl/dla-ciebie",
+            subItems: [
+              {
+                id: "3-2-1",
+                label: "Dla Ciebie",
+                url: "polecane.pl/dla-ciebie",
+              },
+            ]
           },
         ],
       },

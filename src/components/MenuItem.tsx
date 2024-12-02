@@ -7,14 +7,18 @@ import { MenuItemType } from "@/types/types";
 
 interface MenuItemProps {
   menuItem: MenuItemType;
+  depth?: number;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ menuItem }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
+  console.log(depth);
   const { newMenuForms, addNewMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menuItem.id
   );
+
+  const depthPaddingLeft = `${depth * 4}`;
 
   return (
     <div>
@@ -47,11 +51,15 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem }) => {
           ))}
         </div>
       )}
-      <div className="pl-4">
+      <div className={`pl-${depthPaddingLeft}`}>
         {menuItem.subItems &&
           menuItem.subItems.length > 0 &&
           menuItem.subItems.map((nestedMenuItem) => (
-            <MenuItem key={nestedMenuItem.id} menuItem={nestedMenuItem} />
+            <MenuItem
+              key={nestedMenuItem.id}
+              menuItem={nestedMenuItem}
+              depth={depth + 1}
+            />
           ))}
       </div>
     </div>
