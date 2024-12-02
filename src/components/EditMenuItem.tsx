@@ -25,7 +25,7 @@ interface EditMenuItemProps {
 }
 
 const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
-  const { addMenu } = useAppContext();
+  const { addMenu, closeNewMenu } = useAppContext();
 
   const {
     register,
@@ -56,12 +56,23 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
           />
 
           <div className="flex space-x-2">
-            <Button title="Anuluj" type="button" />
+            <Button
+              title="Anuluj"
+              type="button"
+              payload={() => {
+                closeNewMenu(id);
+              }}
+            />
             <Button title="Dodaj" type="submit" />
           </div>
         </form>
         <div className="w-1/12 flex justify-end p-6">
-          <RiDeleteBin6Line className="fill-gray-500 size-4" />
+          <RiDeleteBin6Line
+            className="fill-gray-500 size-4 cursor-pointer"
+            onClick={() => {
+              closeNewMenu(id);
+            }}
+          />
         </div>
       </div>
     </Card>
