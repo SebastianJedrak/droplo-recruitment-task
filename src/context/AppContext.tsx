@@ -108,33 +108,51 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {
-    setMenus((menus: MenusType) => {
-      const newArr = menus.map((menu) => {
-        if (menu.id === parentId) {
-          return { ...menu, subItems: [...menu.subItems, data] };
+    const addRecursive = (items: MenuItemType[]): MenuItemType[] => {
+      return items.map((item) => {
+        if (item.id === parentId) {
+          return {
+            ...item,
+            subItems: [...(item.subItems || []), data], 
+          };
         }
-        if (menu.id !== parentId && menu.subItems.length > 0) {
-          addRecursive(menu.subItems);
+  
+        if (item.subItems && item.subItems.length > 0) {
+          return {
+            ...item,
+            subItems: addRecursive(item.subItems),
+          };
+        }
+  
+        return item;
+      });
+    };
+  
+    setMenus((menus: MenusType) => {
+      let parentFound = false;
+  
+      const newMenus = menus.map((menu) => {
+        if (menu.id === parentId) {
+          parentFound = true;
+          return { ...menu, subItems: [...menu.subItems, data] };
         }
         return menu;
       });
-
-      const addRecursive = (items: MenuItemType[]) => {
-        items.map((item) => {
-          if (item.id === parentId) {
-          }
-          if (item.id !== parentId && item.subItems.length > 0) {
-            addRecursive(item.subItems);
-          }
+  
+      if (!parentFound) {
+        return newMenus.map((menu) => {
+          return {
+            ...menu,
+            subItems: addRecursive(menu.subItems),
+          };
         });
-      };
-
-      console.log(menus);
-      console.log(newArr);
-      return newArr;
+      }
+  
+      return newMenus;
     });
   };
   
+
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
