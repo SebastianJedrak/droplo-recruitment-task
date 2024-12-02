@@ -9,6 +9,7 @@ interface AppContextType {
   addMenu: (data: MenuItemType) => void;
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
+  editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
 
   newMenuForms: formsType;
   addNewMenu: (parentId: string | null, menuItem?: MenuItemType) => void;
@@ -157,11 +158,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     setMenus((menus: MenusType) => {
       const deleteRecursive = (items: MenuItemType[]): MenuItemType[] => {
         const itemFound = items.some((item) => item.id === id);
-  
+
         if (itemFound) {
           return items.filter((item) => item.id !== id);
         }
-  
+
         return items.map((item) => {
           if (item.subItems && item.subItems.length > 0) {
             return {
@@ -172,18 +173,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
           return item;
         });
       };
-  
+
       const newMenus = menus.map((menu) => {
         return {
           ...menu,
           subItems: deleteRecursive(menu.subItems),
         };
       });
-  
+
       return newMenus;
     });
   };
-  
+
+  const editMenuItem = (menuItem: MenuItemType, parentId: string) => {
+    console.log(menuItem);
+  };
 
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
@@ -206,6 +210,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         addMenu,
         addMenuItem,
         deleteMenuItem,
+        editMenuItem,
         newMenuForms,
         addNewMenu,
         closeNewMenu,

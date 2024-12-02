@@ -31,7 +31,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
   parentId,
   menuItem,
 }) => {
-  const { addMenu, addMenuItem, closeNewMenu } = useAppContext();
+  const { addMenu, addMenuItem, closeNewMenu, editMenuItem } = useAppContext();
 
   const {
     register,
@@ -46,12 +46,18 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
   });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    if (parentId === null) addMenu({ ...data, id: generateId(), subItems: [] });
-    if (parentId !== null)
+    if (parentId === null && menuItem === undefined) {
+      addMenu({ ...data, id: generateId(), subItems: [] });
+    }
+    if (parentId !== null && menuItem === undefined) {
       addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
+    }
+    if (parentId !== null && menuItem !== undefined) {
+      editMenuItem({ ...menuItem, ...data }, parentId);
+    }
     closeNewMenu(id);
   };
-  console.log(menuItem);
+
   return (
     <Card backgroundColor="white">
       <div className="flex">
