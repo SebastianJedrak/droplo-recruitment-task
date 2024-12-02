@@ -20,12 +20,10 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
   return (
     <Card backgroundColor="white">
       <ul>
-        {menu.subItems?.map((item) => (
+        {menu.subItems?.map((menuItem) => (
           <MenuItem
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            url={item.url}
+            key={menuItem.id}
+            menuItem={menuItem}
           />
         ))}
       </ul>

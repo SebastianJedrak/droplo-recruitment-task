@@ -3,18 +3,17 @@ import { RiDragMove2Fill } from "react-icons/ri";
 import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
+import { MenuItemType } from "@/types/types";
 
 interface MenuItemProps {
-  id: string;
-  label: string;
-  url?: string;
+  menuItem: MenuItemType;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ id, label, url }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ menuItem }) => {
   const { newMenuForms, addNewMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
-    (menuForm) => menuForm.parentId === id
+    (menuForm) => menuForm.parentId === menuItem.id
   );
 
   return (
@@ -23,8 +22,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, label, url }) => {
         <div className="flex items-center">
           <RiDragMove2Fill size={24} className="fill-gray-500 mr-2" />
           <div>
-            <span className="mr-2 font-bold">{label}</span>
-            <div>{url}</div>
+            <span className="mr-2 font-bold">{menuItem.label}</span>
+            <div>{menuItem.url}</div>
           </div>
         </div>
         <ButtonGroup
@@ -35,7 +34,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, label, url }) => {
               title: "Dodaj pozycję menu",
               type: "button",
               payload: () => {
-                addNewMenu(id);
+                addNewMenu(menuItem.id);
               },
             },
           ]}
