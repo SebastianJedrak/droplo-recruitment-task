@@ -11,8 +11,8 @@ interface MenuItemProps {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
-console.log(depth)
-  const { newMenuForms, addNewMenu } = useAppContext();
+  console.log(depth);
+  const { newMenuForms, addNewMenu, deleteMenuItem } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menuItem.id
@@ -30,7 +30,13 @@ console.log(depth)
         </div>
         <ButtonGroup
           buttons={[
-            { title: "Usuń", type: "button" },
+            {
+              title: "Usuń",
+              type: "button",
+              payload: () => {
+                deleteMenuItem(menuItem.id);
+              },
+            },
             { title: "Edytuj", type: "button" },
             {
               title: "Dodaj pozycję menu",
@@ -45,7 +51,11 @@ console.log(depth)
       {filteredMenuForms.length > 0 && (
         <div className="p-4 border-b bg-gray-100 border-gray-300 space-y-4">
           {filteredMenuForms.map((menuForm) => (
-            <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={menuItem.id}/>
+            <EditMenuItem
+              key={menuForm.id}
+              id={menuForm.id}
+              parentId={menuItem.id}
+            />
           ))}
         </div>
       )}
