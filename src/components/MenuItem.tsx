@@ -11,14 +11,12 @@ interface MenuItemProps {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
-
+console.log(depth)
   const { newMenuForms, addNewMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menuItem.id
   );
-
-  const depthPaddingLeft = `${depth * 4}`;
 
   return (
     <div>
@@ -51,7 +49,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
           ))}
         </div>
       )}
-      <div className={`pl-${depthPaddingLeft}`}>
+      <div style={{ paddingLeft: `${depth * 16}px` }}>
         {menuItem.subItems &&
           menuItem.subItems.length > 0 &&
           menuItem.subItems.map((nestedMenuItem) => (
