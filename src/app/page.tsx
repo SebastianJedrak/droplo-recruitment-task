@@ -4,24 +4,15 @@ import MenuCard from "@/components/MenuCard";
 import EditMenuItem from "@/components/EditMenuItem";
 import AddMenuItem from "@/components/AddMenuItem";
 import { useAppContext } from "../context/AppContext";
-import { useState } from "react";
 import { MenuType } from "@/types/menu";
-import { generateId } from "@/utils/generateId";
 
 export default function Home() {
-  const { menus } = useAppContext();
+  const { menus, newMenuForms } = useAppContext();
 
-  const [newMenuForms, setNewMenuForms] = useState<{ id: string }[]>([]);
-  const addNewMenu = () => {
-    setNewMenuForms((menuForms) => [
-      ...menuForms,
-      { id: generateId() },
-    ]);
-  };
 
   return (
     <>
-      <AddMenuItem payload={addNewMenu} />
+      <AddMenuItem />
       {newMenuForms.map((menuForm) => (
         <EditMenuItem key={menuForm.id} id={menuForm.id} />
       ))}

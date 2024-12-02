@@ -5,8 +5,11 @@ import { MenuItemType, MenusType, MenuType } from "@/types/menu";
 import { generateId } from "@/utils/generateId";
 
 interface AppContextType {
-  menus: any;
+  menus: MenusType;
   addMenu: (data: MenuItemType) => void;
+  
+  newMenuForms: { id: string }[];
+  addNewMenu: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -76,6 +79,7 @@ const sampleMenus: MenusType = [
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  //Menus ctx
   const [menus, setMenus] = useState<MenusType>(sampleMenus);
 
   const addMenu = (data: MenuItemType) => {
@@ -88,8 +92,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
+  //Forms ctx
+  const [newMenuForms, setNewMenuForms] = useState<{ id: string }[]>([]);
+
+  const addNewMenu = () => {
+    setNewMenuForms((menuForms) => [...menuForms, { id: generateId() }]);
+  };
+
   return (
-    <AppContext.Provider value={{ menus, addMenu }}>
+    <AppContext.Provider value={{ menus, addMenu, newMenuForms, addNewMenu }}>
       {children}
     </AppContext.Provider>
   );
