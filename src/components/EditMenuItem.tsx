@@ -21,7 +21,7 @@ type FormFields = z.infer<typeof schema>;
 
 interface EditMenuItemProps {
   id: string;
-  parentId: string | null
+  parentId: string | null;
 }
 
 const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
@@ -34,9 +34,9 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
   } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    if (parentId === null) addMenu({ ...data, id: generateId() });
-    if (parentId !== null) addMenuItem({ ...data, id: generateId()},  parentId );
-
+    if (parentId === null) addMenu({ ...data, id: generateId(), subItems: [] });
+    if (parentId !== null)
+      addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
   };
 
   return (

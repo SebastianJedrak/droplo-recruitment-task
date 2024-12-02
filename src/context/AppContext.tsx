@@ -24,6 +24,7 @@ const sampleMenus: MenusType = [
         id: "1-1",
         label: "Diamenty Forbesa",
         url: "forbes.pl",
+        subItems: [],
       },
     ],
   },
@@ -39,11 +40,13 @@ const sampleMenus: MenusType = [
             id: "2-1-1",
             label: "Ostatnie 7 dni",
             url: "promocje.pl/ostatnie-7-dni",
+            subItems: [],
           },
           {
             id: "2-1-2",
             label: "Najpopularniejsze",
             url: "promocje.pl/najpopularniejsze",
+            subItems: [],
           },
         ],
       },
@@ -51,6 +54,7 @@ const sampleMenus: MenusType = [
         id: "2-2",
         label: "Zniżki specjalne",
         url: "promocje.pl/znizki-specjalne",
+        subItems: [],
       },
     ],
   },
@@ -61,6 +65,7 @@ const sampleMenus: MenusType = [
         id: "3-1",
         label: "Nowości",
         url: "nowosci.pl",
+        subItems: [],
       },
       {
         id: "3-2",
@@ -76,8 +81,9 @@ const sampleMenus: MenusType = [
                 id: "3-2-1-1",
                 label: "Dla Ciebie",
                 url: "polecane.pl/dla-ciebie",
+                subItems: [],
               },
-            ]
+            ],
           },
         ],
       },
@@ -96,27 +102,58 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       ...menus,
       {
         id: generateId(),
-        subItems: [{ ...data}],
+        subItems: [{ ...data }],
       },
     ]);
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {
-    console.log(parentId)
-    setMenus((menus: MenusType) => [
-      ...menus,
-      {
-        id: generateId(),
-        subItems: [{ ...data}],
-      },
-    ]);
+    setMenus((menus: MenusType) => {
+      const newArr = menus.map((menu) => {
+        if (menu.id === parentId) {
+          return { ...menu, subItems: [...menu.subItems, data] };
+        }
+        if (menu.id !== parentId) {
+        }
+        return menu;
+      });
+
+      console.log(menus);
+      console.log(newArr);
+      return newArr;
+    });
   };
+
+  // const addMenuItem = (data: MenuItemType, parentId: string) => {
+  //   const addRecursive = (menus: MenusType): MenusType => {
+  //     return menus.map(menu => {
+  //       if (menu.id === parentId) {
+  //         return {
+  //           ...menu,
+  //           subItems: [...(menu.subItems || []), { ...data, id: generateId() }],
+  //         };
+  //       }
+  //       if (menu.subItems) {
+  //         return {
+  //           ...menu,
+  //           subItems: addRecursive(menu.subItems),
+  //         };
+  //       }
+  //       return menu;
+  //     });
+  //   };
+
+  //   setMenus((menus: MenusType) => addRecursive(menus));
+  // };
 
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
   const addNewMenu = (parentId: string | null) => {
-    setNewMenuForms((menuForms) => [...menuForms, { id: generateId(), parentId: parentId }]);
+    setNewMenuForms((menuForms) => [
+      ...menuForms,
+      { id: generateId(), parentId: parentId },
+    ]);
   };
 
   const closeNewMenu = (id: string) => {
@@ -125,7 +162,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <AppContext.Provider
-      value={{ menus, addMenu, addMenuItem, newMenuForms, addNewMenu, closeNewMenu }}
+      value={{
+        menus,
+        addMenu,
+        addMenuItem,
+        newMenuForms,
+        addNewMenu,
+        closeNewMenu,
+      }}
     >
       {children}
     </AppContext.Provider>
