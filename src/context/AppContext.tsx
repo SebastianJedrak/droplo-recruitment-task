@@ -156,33 +156,34 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   const deleteMenuItem = (id: string) => {
     setMenus((menus: MenusType) => {
       const deleteRecursive = (items: MenuItemType[]): MenuItemType[] => {
-        return items
-          .map((item) => {
-            if (item.subItems && item.subItems.length > 0) {
-
-              const updatedSubItems = deleteRecursive(item.subItems);
-
-              if (updatedSubItems.length !== item.subItems.length) {
-                
-                return { ...item, subItems: updatedSubItems };
-              }
-            }
-
-            return item;
-          })
-          .filter((item) => item.id !== id); 
+        const itemFound = items.some((item) => item.id === id);
+  
+        if (itemFound) {
+          return items.filter((item) => item.id !== id);
+        }
+  
+        return items.map((item) => {
+          if (item.subItems && item.subItems.length > 0) {
+            return {
+              ...item,
+              subItems: deleteRecursive(item.subItems),
+            };
+          }
+          return item;
+        });
       };
-
+  
       const newMenus = menus.map((menu) => {
         return {
           ...menu,
           subItems: deleteRecursive(menu.subItems),
         };
       });
-
+  
       return newMenus;
     });
   };
+  
 
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
