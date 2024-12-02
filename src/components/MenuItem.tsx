@@ -36,7 +36,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
                 deleteMenuItem(menuItem.id);
               },
             },
-            { title: "Edytuj", type: "button" },
+            {
+              title: "Edytuj",
+              type: "button",
+              payload: () => {
+                addNewMenu(menuItem.id, menuItem);
+              },
+            },
             {
               title: "Dodaj pozycję menu",
               type: "button",
@@ -54,6 +60,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
               key={menuForm.id}
               id={menuForm.id}
               parentId={menuItem.id}
+              menuItem={menuItem}
             />
           ))}
         </div>

@@ -11,6 +11,7 @@ import InputLabel from "./forms/InputLabel";
 import InputUrl from "./forms/InputUrl";
 import { useAppContext } from "@/context/AppContext";
 import { generateId } from "@/utils/generateId";
+import { MenuItemType } from "@/types/types";
 
 const schema = z.object({
   label: z.string().min(1, "Nazwa jest wymagane"),
@@ -22,9 +23,14 @@ type FormFields = z.infer<typeof schema>;
 interface EditMenuItemProps {
   id: string;
   parentId: string | null;
+  menuItem?: MenuItemType;
 }
 
-const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
+const EditMenuItem: React.FC<EditMenuItemProps> = ({
+  id,
+  parentId,
+  menuItem,
+}) => {
   const { addMenu, addMenuItem, closeNewMenu } = useAppContext();
 
   const {
@@ -37,9 +43,9 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
     if (parentId === null) addMenu({ ...data, id: generateId(), subItems: [] });
     if (parentId !== null)
       addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
-    closeNewMenu(id)
+    closeNewMenu(id);
   };
-
+console.log(menuItem)
   return (
     <Card backgroundColor="white">
       <div className="flex">
