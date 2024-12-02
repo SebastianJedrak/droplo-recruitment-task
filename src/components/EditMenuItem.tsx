@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import InputLabel from "./forms/InputLabel";
 import InputUrl from "./forms/InputUrl";
-import { useAppContext } from "@/app/context/AppContext";
+import { useAppContext } from "@/context/AppContext";
 
 const schema = z.object({
   label: z.string().min(1, "Nazwa jest wymagane"),
@@ -34,7 +34,10 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     setMenus((menus: any) => [
       ...menus,
-      { id: String(menus.length), menuItems: [{...data, id: String(menus.length)}] },
+      {
+        id: String(menus.length),
+        menuItems: [{ ...data, id: String(menus.length) }],
+      },
     ]);
   };
 

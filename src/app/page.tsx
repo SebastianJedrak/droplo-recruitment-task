@@ -3,8 +3,9 @@
 import MenuCard from "@/components/MenuCard";
 import EditMenuItem from "@/components/EditMenuItem";
 import AddMenuItem from "@/components/AddMenuItem";
-import { useAppContext } from "./context/AppContext";
+import { useAppContext } from "../context/AppContext";
 import { useState } from "react";
+import { MenuType } from "@/types/menu";
 
 export default function Home() {
   const { menus, setMenus } = useAppContext();
@@ -23,8 +24,8 @@ export default function Home() {
       {newMenuForms.map((menuForm) => (
         <EditMenuItem key={menuForm.id} id={menuForm.id} />
       ))}
-      {menus.map((menus: any, index: any) => (
-        <MenuCard key={index} menu={menus}/>
+      {menus.map((menu: MenuType) => (
+        <MenuCard key={menu.id} menu={menu} />
       ))}
     </>
   );
