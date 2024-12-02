@@ -1,14 +1,14 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { MenuItemType, MenusType, MenuType } from "@/types/menu";
+import { formsType, MenuItemType, MenusType } from "@/types/types";
 import { generateId } from "@/utils/generateId";
 
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
 
-  newMenuForms: { id: string }[];
+  newMenuForms: formsType;
   addNewMenu: () => void;
   closeNewMenu: (id: string) => void;
 }
@@ -94,7 +94,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   //Forms ctx
-  const [newMenuForms, setNewMenuForms] = useState<{ id: string }[]>([]);
+  const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
   const addNewMenu = () => {
     setNewMenuForms((menuForms) => [...menuForms, { id: generateId() }]);

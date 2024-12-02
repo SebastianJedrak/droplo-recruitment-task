@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
-import { MenuType } from "@/types/menu";
+import { MenuType } from "@/types/types";
 
 interface MenuCardType {
   menu: MenuType;

@@ -11,7 +11,6 @@ import InputLabel from "./forms/InputLabel";
 import InputUrl from "./forms/InputUrl";
 import { useAppContext } from "@/context/AppContext";
 import { generateId } from "@/utils/generateId";
-import { MenusType } from "@/types/menu";
 
 const schema = z.object({
   label: z.string().min(1, "Nazwa jest wymagane"),
