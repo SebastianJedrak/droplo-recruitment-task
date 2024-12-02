@@ -25,7 +25,7 @@ interface EditMenuItemProps {
 }
 
 const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
-  const { menus, setMenus } = useAppContext();
+  const { addMenu } = useAppContext();
 
   const {
     register,
@@ -34,13 +34,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
   } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    setMenus((menus: MenusType) => [
-      ...menus,
-      {
-        id: generateId(),
-        subItems: [{ ...data, id: generateId() }],
-      },
-    ]);
+    addMenu({ ...data, id: generateId() });
   };
 
   return (

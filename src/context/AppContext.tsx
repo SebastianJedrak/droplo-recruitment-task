@@ -1,11 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { MenusType } from "@/types/menu";
+import { MenuItemType, MenusType, MenuType } from "@/types/menu";
+import { generateId } from "@/utils/generateId";
 
 interface AppContextType {
   menus: any;
-  setMenus: React.Dispatch<React.SetStateAction<any>>;
+  addMenu: (data: MenuItemType) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -72,14 +73,23 @@ const sampleMenus: MenusType = [
   },
 ];
 
-
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [menus, setMenus] = useState<MenusType>(sampleMenus);
 
+  const addMenu = (data: MenuItemType) => {
+    setMenus((menus: MenusType) => [
+      ...menus,
+      {
+        id: generateId(),
+        subItems: [{ ...data, id: generateId() }],
+      },
+    ]);
+  };
+
   return (
-    <AppContext.Provider value={{ menus, setMenus }}>
+    <AppContext.Provider value={{ menus, addMenu }}>
       {children}
     </AppContext.Provider>
   );

@@ -9,7 +9,7 @@ import { MenuType } from "@/types/menu";
 import { generateId } from "@/utils/generateId";
 
 export default function Home() {
-  const { menus, setMenus } = useAppContext();
+  const { menus } = useAppContext();
 
   const [newMenuForms, setNewMenuForms] = useState<{ id: string }[]>([]);
   const addNewMenu = () => {
