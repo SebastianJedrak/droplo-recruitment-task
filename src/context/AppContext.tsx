@@ -7,6 +7,7 @@ import { generateId } from "@/utils/generateId";
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
+  addMenuItem: (data: MenuItemType, parentId: string) => void;
 
   newMenuForms: formsType;
   addNewMenu: (parentId: string | null) => void;
@@ -95,7 +96,18 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       ...menus,
       {
         id: generateId(),
-        subItems: [{ ...data, id: generateId() }],
+        subItems: [{ ...data}],
+      },
+    ]);
+  };
+
+  const addMenuItem = (data: MenuItemType, parentId: string) => {
+    console.log(parentId)
+    setMenus((menus: MenusType) => [
+      ...menus,
+      {
+        id: generateId(),
+        subItems: [{ ...data}],
       },
     ]);
   };
@@ -113,7 +125,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <AppContext.Provider
-      value={{ menus, addMenu, newMenuForms, addNewMenu, closeNewMenu }}
+      value={{ menus, addMenu, addMenuItem, newMenuForms, addNewMenu, closeNewMenu }}
     >
       {children}
     </AppContext.Provider>

@@ -47,7 +47,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
       {filteredMenuForms.length > 0 && (
         <div className="p-4 border-b bg-gray-100 border-gray-300 space-y-4">
           {filteredMenuForms.map((menuForm) => (
-            <EditMenuItem key={menuForm.id} id={menuForm.id} />
+            <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={menuItem.id}/>
           ))}
         </div>
       )}

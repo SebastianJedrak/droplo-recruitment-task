@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <AddMenuItem />
       {newMenuForms.filter(menuForm => menuForm.parentId === null).map((menuForm) => (
-        <EditMenuItem key={menuForm.id} id={menuForm.id} />
+        <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={null}/>
       ))}
       {menus.map((menu: MenuType) => (
         <MenuCard key={menu.id} menu={menu} />

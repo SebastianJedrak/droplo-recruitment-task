@@ -21,10 +21,11 @@ type FormFields = z.infer<typeof schema>;
 
 interface EditMenuItemProps {
   id: string;
+  parentId: string | null
 }
 
-const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
-  const { addMenu, closeNewMenu } = useAppContext();
+const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
+  const { addMenu, addMenuItem, closeNewMenu } = useAppContext();
 
   const {
     register,
@@ -33,7 +34,9 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id }) => {
   } = useForm<FormFields>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    addMenu({ ...data, id: generateId() });
+    if (parentId === null) addMenu({ ...data, id: generateId() });
+    if (parentId !== null) addMenuItem({ ...data, id: generateId()},  parentId );
+
   };
 
   return (
