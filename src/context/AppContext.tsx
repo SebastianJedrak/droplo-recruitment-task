@@ -113,39 +113,28 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         if (menu.id === parentId) {
           return { ...menu, subItems: [...menu.subItems, data] };
         }
-        if (menu.id !== parentId) {
+        if (menu.id !== parentId && menu.subItems.length > 0) {
+          addRecursive(menu.subItems);
         }
         return menu;
       });
+
+      const addRecursive = (items: MenuItemType[]) => {
+        items.map((item) => {
+          if (item.id === parentId) {
+          }
+          if (item.id !== parentId && item.subItems.length > 0) {
+            addRecursive(item.subItems);
+          }
+        });
+      };
 
       console.log(menus);
       console.log(newArr);
       return newArr;
     });
   };
-
-  // const addMenuItem = (data: MenuItemType, parentId: string) => {
-  //   const addRecursive = (menus: MenusType): MenusType => {
-  //     return menus.map(menu => {
-  //       if (menu.id === parentId) {
-  //         return {
-  //           ...menu,
-  //           subItems: [...(menu.subItems || []), { ...data, id: generateId() }],
-  //         };
-  //       }
-  //       if (menu.subItems) {
-  //         return {
-  //           ...menu,
-  //           subItems: addRecursive(menu.subItems),
-  //         };
-  //       }
-  //       return menu;
-  //     });
-  //   };
-
-  //   setMenus((menus: MenusType) => addRecursive(menus));
-  // };
-
+  
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
