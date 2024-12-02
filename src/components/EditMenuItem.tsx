@@ -37,6 +37,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({ id, parentId }) => {
     if (parentId === null) addMenu({ ...data, id: generateId(), subItems: [] });
     if (parentId !== null)
       addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
+    closeNewMenu(id)
   };
 
   return (
