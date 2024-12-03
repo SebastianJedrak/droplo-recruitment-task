@@ -23,7 +23,6 @@ export default function Home() {
     dropSortMenu(draggedItemId, droppedParentId);
   };
 
-
   return (
     <>
       <AddMenuItem />
@@ -32,9 +31,9 @@ export default function Home() {
         .map((menuForm) => (
           <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={null} />
         ))}
-      <DndContext
-        onDragEnd={handleDragEnd} id="dnd-ctx"
-      >
+      <div id="portal-root"></div>
+
+      <DndContext onDragEnd={handleDragEnd} id="dnd-ctx">
         {menus.map((menu: MenuType) => (
           <MenuCard key={menu.id} menu={menu} />
         ))}

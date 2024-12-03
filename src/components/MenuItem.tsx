@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { RiDragMove2Fill } from "react-icons/ri";
 import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
@@ -34,7 +35,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`,
   };
 
-  return (
+  const portalContent = (
     <li
       ref={setNodeRefDraggable}
       {...attributes}
@@ -115,6 +116,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
         </ul>
       </div>
     </li>
+  );
+
+  return (
+    <>
+      {isDragging
+        ? ReactDOM.createPortal(portalContent, document.body)
+        : portalContent}
+    </>
   );
 };
 

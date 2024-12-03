@@ -14,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <AppProvider>
-          <body className="px-4 py-8 space-y-6 bg-gray-50">{children}</body>
-        </AppProvider>
+      <AppProvider>
+        <body className="px-4 py-8 space-y-6 bg-gray-50">
+          {children}
+        </body>
+      </AppProvider>
     </html>
   );
 }
