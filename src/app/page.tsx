@@ -12,7 +12,7 @@ export default function Home() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-
+console.log(active, over)
     if (!over) return;
     if (active.id === over.id) return;
 

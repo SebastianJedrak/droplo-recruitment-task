@@ -5,7 +5,6 @@ import Card from "./UI/Card";
 import { MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
-import { useDroppable } from "@dnd-kit/core";
 
 interface MenuCardType {
   menu: MenuType;
@@ -18,7 +17,6 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     (menuForm) => menuForm.parentId === menu.id
   );
 
-  useDroppable({ id: menu.id });
 
   return (
     <Card backgroundColor="white">

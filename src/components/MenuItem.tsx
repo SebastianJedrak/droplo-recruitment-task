@@ -4,7 +4,7 @@ import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
 import { MenuItemType } from "@/types/types";
-import { useDraggable } from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 interface MenuItemProps {
   menuItem: MenuItemType;
@@ -18,17 +18,25 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     (menuForm) => menuForm.parentId === menuItem.id
   );
 
-  const { attributes, listeners, setNodeRef, transform } =
+  const { attributes, listeners, setNodeRef: setNodeRefDraggable, transform } =
     useDraggable(menuItem);
 
-    const dndStyle = {
-      transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`
-    }
+  const {setNodeRef: setNodeRefDroppable} = useDroppable({ id: menuItem.id });
+
+  const dndStyle = {
+    transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`,
+  };
 
   return (
-    <li ref={setNodeRef} {...attributes} {...listeners} style={dndStyle} className="bg-white">
+    <li
+      ref={setNodeRefDraggable} 
+      {...attributes}
+      {...listeners}
+      style={dndStyle}
+      className="bg-white"
+    >
       <div>
-        <div className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
+        <div ref={setNodeRefDroppable} className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
           <div
             className="flex items-center"
             style={{ paddingLeft: `${depth * 16}px` }}
