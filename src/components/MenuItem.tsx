@@ -4,8 +4,7 @@ import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
 import { MenuItemType } from "@/types/types";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { useDraggable } from "@dnd-kit/core";
 
 interface MenuItemProps {
   menuItem: MenuItemType;
@@ -19,12 +18,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     (menuForm) => menuForm.parentId === menuItem.id
   );
 
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable(menuItem);
+  const { attributes, listeners, setNodeRef, transform } =
+    useDraggable(menuItem);
 
     const dndStyle = {
-      transition,
-      transform: CSS.Transform.toString(transform)
+      transform: `translate(${transform!.x}px, ${transform!.y}px)`
     }
 
   return (

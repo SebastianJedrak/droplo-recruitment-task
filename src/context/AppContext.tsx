@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { formsType, MenuItemType, MenusType } from "@/types/types";
 import { generateId } from "@/utils/generateId";
-import { arrayMove } from "@dnd-kit/sortable";
 
 interface AppContextType {
   menus: MenusType;
@@ -124,8 +123,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
     //   return arrayMove(menus, originalPos, newPos);
     // });
-
-
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {

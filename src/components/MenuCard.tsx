@@ -5,8 +5,12 @@ import Card from "./UI/Card";
 import { MenuItemType, MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
-import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  useDroppable,
+} from "@dnd-kit/core";
 
 interface MenuCardType {
   menu: MenuType;
@@ -20,27 +24,30 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const {active, over} = event
+    const { active, over } = event;
 
-    if (!over) return
-    if (active.id === over.id) return 
+    if (!over) return;
+    if (active.id === over.id) return;
 
-    const draggedItemId = active.id as string
-    const droppedParentId = over.id as string
-    const draggedItem = active as unknown as MenuItemType
+    const draggedItemId = active.id as string;
+    const droppedParentId = over.id as string;
+    const draggedItem = active as unknown as MenuItemType;
+    dropSortMenu(draggedItemId, droppedParentId, draggedItem);
+  };
 
-    dropSortMenu(draggedItemId, droppedParentId, draggedItem)
-  }
+  useDroppable({ id: menu.id });
 
   return (
     <Card backgroundColor="white">
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners} id={"dnd-ctx"}>
+      <DndContext
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCorners}
+        id={"dnd-ctx"}
+      >
         <ul>
-          <SortableContext items={menu.subItems} strategy={verticalListSortingStrategy}>
-            {menu.subItems?.map((menuItem) => (
-              <MenuItem key={menuItem.id} menuItem={menuItem} />
-            ))}
-          </SortableContext>
+          {menu.subItems?.map((menuItem) => (
+            <MenuItem key={menuItem.id} menuItem={menuItem} />
+          ))}
         </ul>
       </DndContext>
 
