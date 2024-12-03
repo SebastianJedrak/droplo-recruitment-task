@@ -8,7 +8,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
-  dropSortMenu: (draggedItemId: string, droppedParentId: string) => void;
+  dropSortMenu: (draggedItemId: string, droppedParentId: string, draggedItem: MenuItemType) => void;
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
   editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
@@ -111,16 +111,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
-  const dropSortMenu = (draggedItemId: string, droppedParentId: string) => {
-    const getTaskPos = (id: string, menus: MenusType) =>
-      menus.findIndex((menu) => menu.id === id);
+  const dropSortMenu = (draggedItemId: string, droppedParentId: string, draggedItem: MenuItemType) => {
+    deleteMenuItem(draggedItemId)
 
-    setMenus((menus: MenusType) => {
-      const originalPos = getTaskPos(draggedItemId, menus);
-      const newPos = getTaskPos(droppedParentId, menus);
+    addMenuItem(draggedItem, droppedParentId)
+    // const getTaskPos = (id: string, menus: MenusType) =>
+    //   menus.findIndex((menu) => menu.id === id);
 
-      return arrayMove(menus, originalPos, newPos);
-    });
+    // setMenus((menus: MenusType) => {
+    //   const originalPos = getTaskPos(draggedItemId, menus);
+    //   const newPos = getTaskPos(droppedParentId, menus);
+
+    //   return arrayMove(menus, originalPos, newPos);
+    // });
+
+
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {

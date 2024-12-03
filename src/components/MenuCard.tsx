@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
-import { MenuType } from "@/types/types";
+import { MenuItemType, MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
 import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
@@ -27,8 +27,9 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
 
     const draggedItemId = active.id as string
     const droppedParentId = over.id as string
+    const draggedItem = active as unknown as MenuItemType
 
-    dropSortMenu(draggedItemId, droppedParentId)
+    dropSortMenu(draggedItemId, droppedParentId, draggedItem)
   }
 
   return (
