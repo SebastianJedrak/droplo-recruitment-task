@@ -4,6 +4,8 @@ import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
 import { MenuItemType } from "@/types/types";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface MenuItemProps {
   menuItem: MenuItemType;
@@ -17,72 +19,80 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     (menuForm) => menuForm.parentId === menuItem.id
   );
 
-  return (
-    <li>
-        <div>
-          <div className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
-            <div
-              className="flex items-center"
-              style={{ paddingLeft: `${depth * 16}px` }}
-            >
-              <RiDragMove2Fill size={24} className="fill-gray-500 mr-2" />
-              <div>
-                <span className="mr-2 font-bold">{menuItem.label}</span>
-                <div>{menuItem.url}</div>
-              </div>
-            </div>
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable(menuItem);
 
-            <ButtonGroup
-              buttons={[
-                {
-                  title: "Usuń",
-                  type: "button",
-                  payload: () => {
-                    deleteMenuItem(menuItem.id);
-                  },
-                },
-                {
-                  title: "Edytuj",
-                  type: "button",
-                  payload: () => {
-                    addNewMenu(menuItem.id, menuItem);
-                  },
-                },
-                {
-                  title: "Dodaj pozycję menu",
-                  type: "button",
-                  payload: () => {
-                    addNewMenu(menuItem.id);
-                  },
-                },
-              ]}
-            />
+    const dndStyle = {
+      transition,
+      transform: CSS.Transform.toString(transform)
+    }
+
+  return (
+    <li ref={setNodeRef} {...attributes} {...listeners} style={dndStyle} className="bg-white">
+      <div>
+        <div className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
+          <div
+            className="flex items-center"
+            style={{ paddingLeft: `${depth * 16}px` }}
+          >
+            <RiDragMove2Fill size={24} className="fill-gray-500 mr-2" />
+            <div>
+              <span className="mr-2 font-bold">{menuItem.label}</span>
+              <div>{menuItem.url}</div>
+            </div>
           </div>
 
-          {filteredMenuForms.length > 0 && (
-            <div className="p-4 border-b bg-gray-100 border-gray-300 space-y-4">
-              {filteredMenuForms.map((menuForm) => (
-                <EditMenuItem
-                  key={menuForm.id}
-                  id={menuForm.id}
-                  parentId={menuItem.id}
-                  menuItem={menuItem}
-                />
-              ))}
-            </div>
-          )}
-          <ul>
-            {menuItem.subItems &&
-              menuItem.subItems.length > 0 &&
-              menuItem.subItems.map((nestedMenuItem) => (
-                <MenuItem
-                  key={nestedMenuItem.id}
-                  menuItem={nestedMenuItem}
-                  depth={depth + 1}
-                />
-              ))}
-          </ul>
+          <ButtonGroup
+            buttons={[
+              {
+                title: "Usuń",
+                type: "button",
+                payload: () => {
+                  deleteMenuItem(menuItem.id);
+                },
+              },
+              {
+                title: "Edytuj",
+                type: "button",
+                payload: () => {
+                  addNewMenu(menuItem.id, menuItem);
+                },
+              },
+              {
+                title: "Dodaj pozycję menu",
+                type: "button",
+                payload: () => {
+                  addNewMenu(menuItem.id);
+                },
+              },
+            ]}
+          />
         </div>
+
+        {filteredMenuForms.length > 0 && (
+          <div className="p-4 border-b bg-gray-100 border-gray-300 space-y-4">
+            {filteredMenuForms.map((menuForm) => (
+              <EditMenuItem
+                key={menuForm.id}
+                id={menuForm.id}
+                parentId={menuItem.id}
+                menuItem={menuItem}
+              />
+            ))}
+          </div>
+        )}
+        <ul>
+          {menuItem.subItems &&
+            menuItem.subItems.length > 0 &&
+            menuItem.subItems.map((nestedMenuItem) => (
+              <MenuItem
+                key={nestedMenuItem.id}
+                menuItem={nestedMenuItem}
+                depth={depth + 1}
+              />
+            ))}
+        </ul>
+      </div>
     </li>
   );
 };
