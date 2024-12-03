@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AppProvider>
-        <body className="px-4 py-8 space-y-6 bg-gray-50">
+        <body className="mx-4 my-8 space-y-6 bg-gray-50">
           {children}
           <div id="portal" className="fixed"></div>
 
