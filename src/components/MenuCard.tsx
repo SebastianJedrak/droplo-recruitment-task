@@ -5,6 +5,8 @@ import Card from "./UI/Card";
 import { MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
+import { closestCorners, DndContext } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 interface MenuCardType {
   menu: MenuType;
@@ -19,14 +21,16 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
 
   return (
     <Card backgroundColor="white">
-      <ul>
-        {menu.subItems?.map((menuItem) => (
-          <MenuItem
-            key={menuItem.id}
-            menuItem={menuItem}
-          />
-        ))}
-      </ul>
+      <DndContext collisionDetection={closestCorners}>
+        <ul>
+          <SortableContext items={menu.subItems} strategy={verticalListSortingStrategy}>
+            {menu.subItems?.map((menuItem) => (
+              <MenuItem key={menuItem.id} menuItem={menuItem} />
+            ))}
+          </SortableContext>
+        </ul>
+      </DndContext>
+
       <div className="m-4">
         <Button
           title="Dodaj pozycję menu"
@@ -37,7 +41,11 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
       {filteredMenuForms.length > 0 && (
         <div className="p-4 border-t bg-gray-100 border-gray-300 space-y-4">
           {filteredMenuForms.map((menuForm) => (
-            <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={menu.id}/>
+            <EditMenuItem
+              key={menuForm.id}
+              id={menuForm.id}
+              parentId={menu.id}
+            />
           ))}
         </div>
       )}

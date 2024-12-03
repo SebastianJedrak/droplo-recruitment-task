@@ -4,7 +4,6 @@ import ButtonGroup from "./UI/ButtonGroup";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
 import { MenuItemType } from "@/types/types";
-import { closestCorners, DndContext } from "@dnd-kit/core";
 
 interface MenuItemProps {
   menuItem: MenuItemType;
@@ -20,7 +19,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
 
   return (
     <li>
-      <DndContext collisionDetection={closestCorners}>
         <div>
           <div className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
             <div
@@ -85,7 +83,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
               ))}
           </ul>
         </div>
-      </DndContext>
     </li>
   );
 };
