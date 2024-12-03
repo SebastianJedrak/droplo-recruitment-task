@@ -18,10 +18,10 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     (menuForm) => menuForm.parentId === menu.id
   );
 
-  const { setNodeRef: setNodeRefDroppable } = useDroppable({ id: menu.id });
+  const { setNodeRef: setNodeRefDroppable, isOver } = useDroppable({ id: menu.id });
 
   return (
-    <div ref={setNodeRefDroppable}>
+    <div ref={setNodeRefDroppable} className={`${isOver && "outline outline-2 outline-purple-400"}`}>
       <Card backgroundColor="white">
         <ul>
           {menu.subItems?.map((menuItem) => (

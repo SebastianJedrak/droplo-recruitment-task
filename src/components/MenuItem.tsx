@@ -26,7 +26,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     isDragging,
   } = useDraggable(menuItem);
 
-  const { setNodeRef: setNodeRefDroppable } = useDroppable({ id: menuItem.id });
+  const { setNodeRef: setNodeRefDroppable, isOver } = useDroppable({
+    id: menuItem.id,
+  });
 
   const dndStyle = {
     transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`,
@@ -42,13 +44,19 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
       <div>
         <div
           ref={setNodeRefDroppable}
-          className="flex items-center justify-between border-b border-gray-300 px-4 py-2"
+          className={`flex items-center justify-between border-b border-gray-300 px-4 py-2 ${
+            isOver && "border-b-2 border-purple-400"
+          }`}
         >
           <div
             className="flex items-center"
             style={{ paddingLeft: `${depth * 16}px` }}
           >
-            <RiDragMove2Fill {...listeners} size={24} className="fill-gray-500 mr-2 cursor-pointer" />
+            <RiDragMove2Fill
+              {...listeners}
+              size={24}
+              className="fill-gray-500 mr-2 cursor-pointer"
+            />
             <div>
               <span className="mr-2 font-bold">{menuItem.label}</span>
               <div>{menuItem.url}</div>
