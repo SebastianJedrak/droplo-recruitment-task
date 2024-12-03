@@ -12,12 +12,14 @@ export default function Home() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-console.log(active, over)
+
     if (!over) return;
-    if (active.id === over.id) return;
 
     const draggedItemId = active.id as string;
     const droppedParentId = over.id as string;
+
+    if (draggedItemId === droppedParentId) return;
+
     dropSortMenu(draggedItemId, droppedParentId);
   };
 

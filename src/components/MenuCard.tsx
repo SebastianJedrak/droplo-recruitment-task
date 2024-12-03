@@ -5,6 +5,7 @@ import Card from "./UI/Card";
 import { MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
+import { useDroppable } from "@dnd-kit/core";
 
 interface MenuCardType {
   menu: MenuType;
@@ -17,34 +18,37 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     (menuForm) => menuForm.parentId === menu.id
   );
 
+  const { setNodeRef: setNodeRefDroppable } = useDroppable({ id: menu.id });
 
   return (
-    <Card backgroundColor="white">
-      <ul>
-        {menu.subItems?.map((menuItem) => (
-          <MenuItem key={menuItem.id} menuItem={menuItem} />
-        ))}
-      </ul>
-
-      <div className="m-4">
-        <Button
-          title="Dodaj pozycję menu"
-          type="button"
-          payload={() => addNewMenu(menu.id)}
-        />
-      </div>
-      {filteredMenuForms.length > 0 && (
-        <div className="p-4 border-t bg-gray-100 border-gray-300 space-y-4">
-          {filteredMenuForms.map((menuForm) => (
-            <EditMenuItem
-              key={menuForm.id}
-              id={menuForm.id}
-              parentId={menu.id}
-            />
+    <div ref={setNodeRefDroppable}>
+      <Card backgroundColor="white">
+        <ul>
+          {menu.subItems?.map((menuItem) => (
+            <MenuItem key={menuItem.id} menuItem={menuItem} />
           ))}
+        </ul>
+
+        <div className="m-4">
+          <Button
+            title="Dodaj pozycję menu"
+            type="button"
+            payload={() => addNewMenu(menu.id)}
+          />
         </div>
-      )}
-    </Card>
+        {filteredMenuForms.length > 0 && (
+          <div className="p-4 border-t bg-gray-100 border-gray-300 space-y-4">
+            {filteredMenuForms.map((menuForm) => (
+              <EditMenuItem
+                key={menuForm.id}
+                id={menuForm.id}
+                parentId={menu.id}
+              />
+            ))}
+          </div>
+        )}
+      </Card>
+    </div>
   );
 };
 
