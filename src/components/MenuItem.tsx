@@ -63,35 +63,36 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
               <div>{menuItem.url}</div>
             </div>
           </div>
-
-          <ButtonGroup
-            buttons={[
-              {
-                title: "Usuń",
-                type: "button",
-                payload: () => {
-                  deleteMenuItem(menuItem.id);
+          {!isDragging && (
+            <ButtonGroup
+              buttons={[
+                {
+                  title: "Usuń",
+                  type: "button",
+                  payload: () => {
+                    deleteMenuItem(menuItem.id);
+                  },
                 },
-              },
-              {
-                title: "Edytuj",
-                type: "button",
-                payload: () => {
-                  addNewMenu(menuItem.id, menuItem);
+                {
+                  title: "Edytuj",
+                  type: "button",
+                  payload: () => {
+                    addNewMenu(menuItem.id, menuItem);
+                  },
                 },
-              },
-              {
-                title: "Dodaj pozycję menu",
-                type: "button",
-                payload: () => {
-                  addNewMenu(menuItem.id);
+                {
+                  title: "Dodaj pozycję menu",
+                  type: "button",
+                  payload: () => {
+                    addNewMenu(menuItem.id);
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          )}
         </div>
 
-        {filteredMenuForms.length > 0 && (
+        {!isDragging && filteredMenuForms.length > 0 && (
           <div className="p-4 border-b bg-gray-100 border-gray-300 space-y-4">
             {filteredMenuForms.map((menuForm) => (
               <EditMenuItem
@@ -103,17 +104,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
             ))}
           </div>
         )}
-        <ul>
-          {menuItem.subItems &&
-            menuItem.subItems.length > 0 &&
-            menuItem.subItems.map((nestedMenuItem) => (
-              <MenuItem
-                key={nestedMenuItem.id}
-                menuItem={nestedMenuItem}
-                depth={depth + 1}
-              />
-            ))}
-        </ul>
+
+        {!isDragging && (
+          <ul>
+            {menuItem.subItems &&
+              menuItem.subItems.length > 0 &&
+              menuItem.subItems.map((nestedMenuItem) => (
+                <MenuItem
+                  key={nestedMenuItem.id}
+                  menuItem={nestedMenuItem}
+                  depth={depth + 1}
+                />
+              ))}
+          </ul>
+        )}
       </div>
     </li>
   );
@@ -121,7 +125,10 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
   return (
     <>
       {isDragging
-        ? ReactDOM.createPortal(portalContent, document.body)
+        ? ReactDOM.createPortal(
+            portalContent,
+            document.getElementById("portal")!
+          )
         : portalContent}
     </>
   );

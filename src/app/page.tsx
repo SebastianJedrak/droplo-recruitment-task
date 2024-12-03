@@ -31,7 +31,6 @@ export default function Home() {
         .map((menuForm) => (
           <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={null} />
         ))}
-      <div id="portal-root"></div>
 
       <DndContext onDragEnd={handleDragEnd} id="dnd-ctx">
         {menus.map((menu: MenuType) => (
