@@ -22,7 +22,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     useDraggable(menuItem);
 
     const dndStyle = {
-      transform: `translate(${transform!.x}px, ${transform!.y}px)`
+      transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`
     }
 
   return (

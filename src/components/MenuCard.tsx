@@ -2,54 +2,31 @@ import React from "react";
 import MenuItem from "./MenuItem";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
-import { MenuItemType, MenuType } from "@/types/types";
+import { MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
-import {
-  closestCorners,
-  DndContext,
-  DragEndEvent,
-  useDroppable,
-} from "@dnd-kit/core";
+import { useDroppable } from "@dnd-kit/core";
 
 interface MenuCardType {
   menu: MenuType;
 }
 
 const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
-  const { newMenuForms, addNewMenu, dropSortMenu } = useAppContext();
+  const { newMenuForms, addNewMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menu.id
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (!over) return;
-    if (active.id === over.id) return;
-
-    const draggedItemId = active.id as string;
-    const droppedParentId = over.id as string;
-    const draggedItem = active as unknown as MenuItemType;
-    dropSortMenu(draggedItemId, droppedParentId, draggedItem);
-  };
-
   useDroppable({ id: menu.id });
 
   return (
     <Card backgroundColor="white">
-      <DndContext
-        onDragEnd={handleDragEnd}
-        collisionDetection={closestCorners}
-        id={"dnd-ctx"}
-      >
-        <ul>
-          {menu.subItems?.map((menuItem) => (
-            <MenuItem key={menuItem.id} menuItem={menuItem} />
-          ))}
-        </ul>
-      </DndContext>
+      <ul>
+        {menu.subItems?.map((menuItem) => (
+          <MenuItem key={menuItem.id} menuItem={menuItem} />
+        ))}
+      </ul>
 
       <div className="m-4">
         <Button
