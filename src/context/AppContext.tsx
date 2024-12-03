@@ -4,12 +4,11 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { formsType, MenuItemType, MenusType } from "@/types/types";
 import { generateId } from "@/utils/generateId";
 import { arrayMove } from "@dnd-kit/sortable";
-import { Active, Over } from "@dnd-kit/core";
 
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
-  sortMenu: (active: Active, over: Over) => void;
+  dropSortMenu: (draggedItemId: string, droppedParentId: string) => void;
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
   editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
@@ -112,13 +111,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
-  const sortMenu = (active: Active, over: Over) => {
+  const dropSortMenu = (draggedItemId: string, droppedParentId: string) => {
     const getTaskPos = (id: string, menus: MenusType) =>
       menus.findIndex((menu) => menu.id === id);
 
     setMenus((menus: MenusType) => {
-      const originalPos = getTaskPos(String(active.id), menus);
-      const newPos = getTaskPos(String(over.id), menus);
+      const originalPos = getTaskPos(draggedItemId, menus);
+      const newPos = getTaskPos(droppedParentId, menus);
 
       return arrayMove(menus, originalPos, newPos);
     });
@@ -259,7 +258,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         menus,
         addMenu,
-        sortMenu,
+        dropSortMenu,
         addMenuItem,
         deleteMenuItem,
         editMenuItem,

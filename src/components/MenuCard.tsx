@@ -13,7 +13,7 @@ interface MenuCardType {
 }
 
 const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
-  const { newMenuForms, addNewMenu, sortMenu } = useAppContext();
+  const { newMenuForms, addNewMenu, dropSortMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menu.id
@@ -25,7 +25,10 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     if (!over) return
     if (active.id === over.id) return 
 
-    sortMenu(active, over)
+    const draggedItemId = active.id as string
+    const droppedParentId = over.id as string
+
+    dropSortMenu(draggedItemId, droppedParentId)
   }
 
   return (
