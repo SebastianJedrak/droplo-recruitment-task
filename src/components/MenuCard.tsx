@@ -5,7 +5,7 @@ import Card from "./UI/Card";
 import { MenuType } from "@/types/types";
 import { useAppContext } from "@/context/AppContext";
 import EditMenuItem from "./EditMenuItem";
-import { closestCorners, DndContext } from "@dnd-kit/core";
+import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 interface MenuCardType {
@@ -19,9 +19,15 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
     (menuForm) => menuForm.parentId === menu.id
   );
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const {active, over} = event
+
+    if (active.id === over?.id) return 
+  }
+
   return (
     <Card backgroundColor="white">
-      <DndContext collisionDetection={closestCorners}>
+      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
         <ul>
           <SortableContext items={menu.subItems} strategy={verticalListSortingStrategy}>
             {menu.subItems?.map((menuItem) => (
