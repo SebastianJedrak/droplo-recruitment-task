@@ -18,8 +18,7 @@ console.log(active, over)
 
     const draggedItemId = active.id as string;
     const droppedParentId = over.id as string;
-    const draggedItem = active as unknown as MenuItemType;
-    dropSortMenu(draggedItemId, droppedParentId, draggedItem);
+    dropSortMenu(draggedItemId, droppedParentId);
   };
 
 

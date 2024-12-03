@@ -7,7 +7,7 @@ import { generateId } from "@/utils/generateId";
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
-  dropSortMenu: (draggedItemId: string, droppedParentId: string, draggedItem: MenuItemType) => void;
+  dropSortMenu: (draggedItemId: string, droppedParentId: string) => void;
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
   editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
@@ -110,19 +110,32 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
-  const dropSortMenu = (draggedItemId: string, droppedParentId: string, draggedItem: MenuItemType) => {
-    deleteMenuItem(draggedItemId)
+  const dropSortMenu = (draggedItemId: string, droppedParentId: string) => {
+    const findRecursive = (
+      menuItems: MenuItemType[] | MenusType
+    ): MenuItemType | undefined => {
+      for (const item of menuItems) {
+        if (item.id === draggedItemId) {
+          return item as MenuItemType;
+        }
 
-    addMenuItem(draggedItem, droppedParentId)
-    // const getTaskPos = (id: string, menus: MenusType) =>
-    //   menus.findIndex((menu) => menu.id === id);
+        if (item.subItems && item.subItems.length > 0) {
+          const found = findRecursive(item.subItems);
+          if (found) {
+            return found;
+          }
+        }
+      }
 
-    // setMenus((menus: MenusType) => {
-    //   const originalPos = getTaskPos(draggedItemId, menus);
-    //   const newPos = getTaskPos(droppedParentId, menus);
+      return undefined;
+    };
 
-    //   return arrayMove(menus, originalPos, newPos);
-    // });
+    const draggedItem: MenuItemType | undefined = findRecursive(menus);
+    if (!draggedItem) return;
+
+    deleteMenuItem(draggedItemId);
+
+    addMenuItem(draggedItem, droppedParentId);
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {
