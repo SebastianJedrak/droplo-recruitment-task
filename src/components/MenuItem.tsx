@@ -18,10 +18,15 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     (menuForm) => menuForm.parentId === menuItem.id
   );
 
-  const { attributes, listeners, setNodeRef: setNodeRefDraggable, transform } =
-    useDraggable(menuItem);
+  const {
+    attributes,
+    listeners,
+    setNodeRef: setNodeRefDraggable,
+    transform,
+    isDragging,
+  } = useDraggable(menuItem);
 
-  const {setNodeRef: setNodeRefDroppable} = useDroppable({ id: menuItem.id });
+  const { setNodeRef: setNodeRefDroppable } = useDroppable({ id: menuItem.id });
 
   const dndStyle = {
     transform: `translate(${transform?.x || "0"}px, ${transform?.y || "0"}px)`,
@@ -29,14 +34,17 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
 
   return (
     <li
-      ref={setNodeRefDraggable} 
+      ref={setNodeRefDraggable}
       {...attributes}
       {...listeners}
       style={dndStyle}
-      className="bg-white"
+      className={`bg-white ${isDragging && "opacity-75"}`}
     >
       <div>
-        <div ref={setNodeRefDroppable} className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
+        <div
+          ref={setNodeRefDroppable}
+          className="flex items-center justify-between border-b border-gray-300 px-4 py-2"
+        >
           <div
             className="flex items-center"
             style={{ paddingLeft: `${depth * 16}px` }}
