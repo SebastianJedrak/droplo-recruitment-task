@@ -3,10 +3,13 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { formsType, MenuItemType, MenusType } from "@/types/types";
 import { generateId } from "@/utils/generateId";
+import { arrayMove } from "@dnd-kit/sortable";
+import { Active, Over } from "@dnd-kit/core";
 
 interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
+  sortMenu: (active: Active, over: Over) => void;
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
   editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
@@ -109,6 +112,18 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
+  const sortMenu = (active: Active, over: Over) => {
+    const getTaskPos = (id: string, menus: MenusType) =>
+      menus.findIndex((menu) => menu.id === id);
+
+    setMenus((menus: MenusType) => {
+      const originalPos = getTaskPos(String(active.id), menus);
+      const newPos = getTaskPos(String(over.id), menus);
+
+      return arrayMove(menus, originalPos, newPos);
+    });
+  };
+
   const addMenuItem = (data: MenuItemType, parentId: string) => {
     const addRecursive = (items: MenuItemType[]): MenuItemType[] => {
       return items.map((item) => {
@@ -199,7 +214,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
           };
         }
 
-        return item; 
+        return item;
       });
     };
 
@@ -209,7 +224,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       const newMenus = menus.map((menu) => {
         if (menu.id === menuItem.id) {
           itemFound = true;
-          return menuItem; 
+          return menuItem;
         }
         return menu;
       });
@@ -244,6 +259,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         menus,
         addMenu,
+        sortMenu,
         addMenuItem,
         deleteMenuItem,
         editMenuItem,

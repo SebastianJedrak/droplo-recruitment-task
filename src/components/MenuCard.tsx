@@ -13,7 +13,7 @@ interface MenuCardType {
 }
 
 const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
-  const { newMenuForms, addNewMenu } = useAppContext();
+  const { newMenuForms, addNewMenu, sortMenu } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
     (menuForm) => menuForm.parentId === menu.id
@@ -22,12 +22,15 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event
 
-    if (active.id === over?.id) return 
+    if (!over) return
+    if (active.id === over.id) return 
+
+    sortMenu(active, over)
   }
 
   return (
     <Card backgroundColor="white">
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners} id={"dnd-ctx"}>
         <ul>
           <SortableContext items={menu.subItems} strategy={verticalListSortingStrategy}>
             {menu.subItems?.map((menuItem) => (
