@@ -10,8 +10,14 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 export default function Home() {
   const { menus, newMenuForms, dropSortMenu } = useAppContext();
 
+  const handleDragStart = () => {
+    document.body.style.overflowY = "hidden";
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+
+    document.body.style.overflowY = "unset";
 
     if (!over) return;
 
@@ -32,7 +38,7 @@ export default function Home() {
           <EditMenuItem key={menuForm.id} id={menuForm.id} parentId={null} />
         ))}
 
-      <DndContext onDragEnd={handleDragEnd} id="dnd-ctx">
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} id="dnd-ctx">
         {menus.map((menu: MenuType) => (
           <MenuCard key={menu.id} menu={menu} />
         ))}
