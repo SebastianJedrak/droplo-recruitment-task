@@ -36,7 +36,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
     <li
       ref={setNodeRefDraggable}
       {...attributes}
-      {...listeners}
       style={dndStyle}
       className={`bg-white ${isDragging && "opacity-75"}`}
     >
@@ -49,7 +48,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
             className="flex items-center"
             style={{ paddingLeft: `${depth * 16}px` }}
           >
-            <RiDragMove2Fill size={24} className="fill-gray-500 mr-2" />
+            <RiDragMove2Fill {...listeners} size={24} className="fill-gray-500 mr-2" />
             <div>
               <span className="mr-2 font-bold">{menuItem.label}</span>
               <div>{menuItem.url}</div>
