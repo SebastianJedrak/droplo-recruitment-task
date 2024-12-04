@@ -42,7 +42,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
       ref={setNodeRefDraggable}
       {...attributes}
       style={dndStyle}
-      className={`${isDragging && "opacity-75"} cursor-default bg-white `}
+      className={`${isDragging && "opacity-75"} cursor-default  `}
     >
       <div>
         <div
@@ -52,7 +52,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
             ${isOver && "border-b-2 border-purple-700"}
             ${depth > 1 && "border-l border-l-gray-200"}
             ${hasSubItems && depth > 1 && "overflow-hidden rounded-bl-xl " }
-            
+            bg-white
           `}
         >
           <div className="flex items-center">

@@ -16,7 +16,7 @@ const Card: React.FC<CardProps> = ({
       className={`
       ${backgroundColor === "white" && "bg-white"}
       ${backgroundColor === "gray" && "bg-gray-50"}
-      rounded-lg border 
+      rounded-lg border overflow-hidden 
       ${border === "primary" && "border-gray-300"}
       ${border === "secondary" && "border-gray-200"}
       `}
