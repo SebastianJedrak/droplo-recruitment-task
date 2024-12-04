@@ -60,10 +60,10 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
 
   return (
     <Card backgroundColor="white">
-      <div className="flex">
+      <div className="flex py-5 px-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="p-4 space-y-1 w-11/12"
+          className="w-full"
         >
           <InputLabel
             register={register}
@@ -87,9 +87,9 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
             <Button title="Dodaj" type="submit" />
           </div>
         </form>
-        <div className="w-1/12 flex justify-end p-6">
+        <div className="flex justify-end p-3 pl-6">
           <RiDeleteBin6Line
-            className="fill-gray-500 size-4 cursor-pointer"
+            className="fill-gray-500 size-4 cursor-pointer fill-gray-400"
             onClick={() => {
               closeNewMenu(id);
             }}
