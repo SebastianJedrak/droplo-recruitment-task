@@ -29,7 +29,7 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
           ))}
         </ul>
 
-        <div className="m-4">
+        <div className="m-5 ml-6">
           <Button
             title="Dodaj pozycję menu"
             type="button"
