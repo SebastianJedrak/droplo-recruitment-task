@@ -22,14 +22,14 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
 
   return (
     <div ref={setNodeRefDroppable} className={`${isOver && "outline outline-2 outline-purple-700"}`}>
-      <Card backgroundColor="transparent">
+      <Card backgroundColor="white">
         <ul>
           {menu.subItems?.map((menuItem) => (
             <MenuItem key={menuItem.id} menuItem={menuItem} />
           ))}
         </ul>
 
-        <div className="m-5 ml-6">
+        <div className="p-5 pl-6 bg-gray-100 rounded-b-lg">
           <Button
             title="Dodaj pozycję menu"
             type="button"

@@ -40,9 +40,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
       ref={setNodeRefDraggable}
       {...attributes}
       style={dndStyle}
-      className={`bg-white ${isDragging && "opacity-75"} cursor-default`}
+      className={`${isDragging && "opacity-75"} cursor-default`}
     >
-      <div>
+      <div className="">
         <div
           ref={setNodeRefDroppable}
           className={`flex items-center justify-between border-b border-gray-300 px-6 py-4 ${
