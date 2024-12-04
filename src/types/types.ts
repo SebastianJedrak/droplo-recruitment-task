@@ -11,7 +11,8 @@ export type MenusType = MenuType[];
 
 export type formType = {
   id: string;
-  parentId: string | null
+  parentId: string | null;
+  menuItem?: MenuItemType
 };
 
  export type formsType =formType[]

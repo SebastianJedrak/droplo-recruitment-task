@@ -98,7 +98,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
                 key={menuForm.id}
                 id={menuForm.id}
                 parentId={menuItem.id}
-                menuItem={menuItem}
               />
             ))}
           </div>

@@ -11,7 +11,7 @@ import InputLabel from "./forms/InputLabel";
 import InputUrl from "./forms/InputUrl";
 import { useAppContext } from "@/context/AppContext";
 import { generateId } from "@/utils/generateId";
-import { MenuItemType } from "@/types/types";
+import { formType, MenuItemType } from "@/types/types";
 
 const schema = z.object({
   label: z.string().min(1, "Nazwa jest wymagane"),
@@ -23,15 +23,15 @@ type FormFields = z.infer<typeof schema>;
 interface EditMenuItemProps {
   id: string;
   parentId: string | null;
-  menuItem?: MenuItemType;
 }
 
 const EditMenuItem: React.FC<EditMenuItemProps> = ({
   id,
   parentId,
-  menuItem,
 }) => {
-  const { addMenu, changeMenuItem, closeNewMenu  } = useAppContext();
+  const { addMenu, changeMenuItem, closeNewMenu, newMenuForms  } = useAppContext();
+
+  const currentForm = newMenuForms.find(form => form.id === id) as formType
 
   const {
     register,
@@ -39,21 +39,21 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
     formState: { errors },
   } = useForm<FormFields>({
     defaultValues: {
-      label: menuItem?.label || undefined,
-      url: menuItem?.url || undefined,
+      label: currentForm.menuItem?.label || undefined,
+      url: currentForm.menuItem?.url || undefined,
     },
     resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    if (parentId === null && menuItem === undefined) {
+    if (parentId === null && currentForm.menuItem === undefined) {
       addMenu({ ...data, id: generateId(), subItems: [] });
     }
-    if (parentId !== null && menuItem === undefined) {
+    if (parentId !== null && currentForm.menuItem === undefined) {
       changeMenuItem({ ...data, id: generateId(), subItems: [] }, parentId, "add");
     }
-    if (parentId !== null && menuItem !== undefined) {
-      changeMenuItem({ ...menuItem, ...data }, parentId, "edit");
+    if (parentId !== null && currentForm.menuItem !== undefined) {
+      changeMenuItem({ ...currentForm.menuItem, ...data }, parentId, "edit");
     }
     closeNewMenu(id);
   };
