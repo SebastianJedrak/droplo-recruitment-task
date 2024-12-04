@@ -8,6 +8,8 @@ interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
   dropSortMenu: (draggedItemId: string, droppedParentId: string) => void;
+  changeMenuItem: (data: MenuItemType, parentId: string, action: "edit" | "add") => void;
+
   addMenuItem: (data: MenuItemType, parentId: string) => void;
   deleteMenuItem: (id: string) => void;
   editMenuItem: (menuItem: MenuItemType, parentId: string) => void;
@@ -136,6 +138,67 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     deleteMenuItem(draggedItemId);
 
     addMenuItem(draggedItem, droppedParentId);
+  };
+
+  const changeMenuItem = (
+    data: MenuItemType,
+    parentId: string,
+    action: "edit" | "add"
+  ) => {
+    const addRecursive = (items: MenuItemType[]): MenuItemType[] => {
+      return items.map((item) => {
+        if (item.id === parentId) {
+          if (action === "add") {
+            return {
+              ...item,
+              subItems: [...(item.subItems || []), data],
+            };
+          }
+          if (action === "edit") {
+            return data;
+          }
+
+          return { ...item };
+        }
+
+        if (item.subItems && item.subItems.length > 0) {
+          return {
+            ...item,
+            subItems: addRecursive(item.subItems),
+          };
+        }
+
+        return item;
+      });
+    };
+
+    setMenus((menus: MenusType) => {
+      let parentFound = false;
+
+      const newMenus = menus.map((menu) => {
+        if (menu.id === parentId) {
+          parentFound = true;
+          if (action === "add") {
+            return { ...menu, subItems: [...menu.subItems, data] };
+          }
+          if (action === "edit") {
+            return data;
+          }
+        }
+        return menu;
+      });
+
+      if (!parentFound) {
+        return newMenus.map((menu) => {
+          return {
+            ...menu,
+            subItems: addRecursive(menu.subItems),
+          };
+        });
+      }
+
+      return newMenus;
+    });
   };
 
   const addMenuItem = (data: MenuItemType, parentId: string) => {
@@ -274,6 +337,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         menus,
         addMenu,
         dropSortMenu,
+        changeMenuItem,
         addMenuItem,
         deleteMenuItem,
         editMenuItem,
