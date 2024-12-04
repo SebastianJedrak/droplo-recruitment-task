@@ -16,3 +16,15 @@ body {
 li {
   list-style: none;
 }
+
+@layer base {
+  h3 {
+    @apply text-gray-600 font-semibold;
+  }
+
+  span {
+    @apply font-normal text-gray-400;
+    font-size: 14px;
+  }
+
+}
