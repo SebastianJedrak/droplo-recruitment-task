@@ -84,7 +84,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
                 closeNewMenu(id);
               }}
             />
-            <Button title="Dodaj" type="submit" />
+            <Button title="Dodaj" type="submit" style="color-outline"/>
           </div>
         </form>
         <div className="flex justify-end p-3 pl-6">

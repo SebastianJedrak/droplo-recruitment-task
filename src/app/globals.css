@@ -37,4 +37,9 @@ li {
     font-size: 14px;
   }
 
+  button {
+    @apply font-semibold ;
+    font-size: 14px;
+  }
+
 }

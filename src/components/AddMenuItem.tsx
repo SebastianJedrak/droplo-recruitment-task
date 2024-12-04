@@ -20,6 +20,7 @@ const AddMenuItem: React.FC = () => {
           payload={() => {
             addNewMenu(null);
           }}
+          style="filled"
         />
       </div>
     </Card>
