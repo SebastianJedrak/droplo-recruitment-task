@@ -37,7 +37,7 @@ const MenuCard: React.FC<MenuCardType> = ({ menu }) => {
           />
         </div>
         {filteredMenuForms.length > 0 && (
-          <div className="p-4 border-t bg-gray-100 border-gray-300 space-y-4">
+          <div className="p-4  bg-gray-100 space-y-4">
             {filteredMenuForms.map((menuForm) => (
               <EditMenuItem
                 key={menuForm.id}

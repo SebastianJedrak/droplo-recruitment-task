@@ -12,7 +12,7 @@ interface MenuItemProps {
   depth?: number;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
   const { newMenuForms, addNewMenu, deleteMenuItem } = useAppContext();
 
   const filteredMenuForms = newMenuForms.filter(
@@ -45,7 +45,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
       <div>
         <div
           ref={setNodeRefDroppable}
-          className={`flex items-center justify-between border-b border-gray-300 px-6 py-4 ${
+          className={`flex items-center justify-between border-b border-gray-200 px-6 py-4 ${
             isOver && "border-b-2 border-purple-700"
           }`}
         >
@@ -89,7 +89,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
         </div>
 
         {!isDragging && filteredMenuForms.length > 0 && (
-          <div className="py-5 pr-6 pl-16  border-b bg-gray-50 border-gray-300 space-y-4">
+          <div className="py-5 pr-6 pl-16  border-b bg-gray-50 border-gray-200 space-y-4">
             {filteredMenuForms.map((menuForm) => (
               <EditMenuItem
                 key={menuForm.id}

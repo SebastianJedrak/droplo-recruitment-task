@@ -9,7 +9,7 @@ const AddMenuItem: React.FC = () => {
   const { addNewMenu } = useAppContext();
 
   return (
-    <Card backgroundColor="gray">
+    <Card backgroundColor="gray" border="secondary">
       <div className="flex flex-col items-center my-6">
         <div className="mb-6">
           <h3 className="mb-1 text-center">Menu jest puste</h3>
