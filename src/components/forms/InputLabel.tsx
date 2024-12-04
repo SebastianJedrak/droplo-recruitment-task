@@ -18,7 +18,7 @@ const InputLabel: React.FC<InputLabelProps> = ({ register, name, error }) => {
         type="text"
         placeholder="np. Promocje"
         {...register(name)}
-        className="w-full pl-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="w-full pl-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-700"
       />
       <p style={{fontSize: 14}} className={`text-red-500 ${error ? "" : "invisible"}`}>
         Błąd: {error}

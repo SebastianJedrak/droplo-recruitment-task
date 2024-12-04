@@ -46,7 +46,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
         <div
           ref={setNodeRefDroppable}
           className={`flex items-center justify-between border-b border-gray-300 px-6 py-4 ${
-            isOver && "border-b-2 border-purple-400"
+            isOver && "border-b-2 border-purple-700"
           }`}
         >
           <div

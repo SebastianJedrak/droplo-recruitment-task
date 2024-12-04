@@ -23,6 +23,9 @@ export default {
           500: '#344054', 
           600: '#101828', 
         },
+        purple: {
+          700: '#7F56D9', 
+        },
       },
       boxShadow: {
         'custom-shadow': '0px 1px 2px 0px #1018280D',
