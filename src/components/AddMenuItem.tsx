@@ -2,6 +2,8 @@ import React from "react";
 import Card from "./UI/Card";
 import Button from "./UI/Button";
 import { useAppContext } from "@/context/AppContext";
+import { FiPlusCircle } from "react-icons/fi";
+
 
 const AddMenuItem: React.FC = () => {
   const { addNewMenu } = useAppContext();
@@ -21,6 +23,7 @@ const AddMenuItem: React.FC = () => {
             addNewMenu(null);
           }}
           style="filled"
+          icon={<FiPlusCircle size={20}/>}
         />
       </div>
     </Card>

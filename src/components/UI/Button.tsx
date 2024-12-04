@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 interface ButtonProps {
   title: string;
@@ -6,6 +6,7 @@ interface ButtonProps {
   className?: string;
   payload?: (arg: any) => void;
   style?: "filled" | "outline" | "color-outline";
+  icon?: ReactElement
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,11 +15,12 @@ const Button: React.FC<ButtonProps> = ({
   className,
   payload,
   style = "outline",
+  icon
 }) => {
   return (
     <button
       type={type}
-      className={`px-4 py-2  rounded-lg shadow-custom-shadow
+      className={`px-4 py-2  rounded-lg shadow-custom-shadow flex items-center
         ${
           style === "outline" &&
           "border border-gray-300 hover:bg-gray-100 hover:text-purple-700 text-gray-500"
@@ -36,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({
          ${className}`}
       onClick={payload}
     >
+      {icon && <div className="mr-1">{icon}</div>}
       {title}
     </button>
   );
