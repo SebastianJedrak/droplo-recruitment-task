@@ -27,4 +27,9 @@ li {
     font-size: 14px;
   }
 
+  label {
+    @apply font-medium text-gray-500;
+    font-size: 14px;
+  }
+
 }

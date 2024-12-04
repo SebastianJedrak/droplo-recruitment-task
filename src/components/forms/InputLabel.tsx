@@ -10,7 +10,7 @@ interface InputLabelProps {
 const InputLabel: React.FC<InputLabelProps> = ({ register, name, error }) => {
   return (
     <div>
-      <label htmlFor="menu" className="block mb-1 font-bold">
+      <label htmlFor="menu" className="block mb-1">
         Menu
       </label>
       <input
