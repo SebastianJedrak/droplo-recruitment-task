@@ -10,8 +10,8 @@ const Card: React.FC<CardProps> = ({ backgroundColor, children }) => {
     <div
       className={`
       ${backgroundColor === "white" && "bg-white"}
-      ${backgroundColor === "gray" && "bg-gray-100"}
-      rounded-lg border-2 border-gray-300 background-black`}
+      ${backgroundColor === "gray" && "bg-gray-50"}
+      rounded-lg border border-gray-300`}
     >
       {children}
     </div>
