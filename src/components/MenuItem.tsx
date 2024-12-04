@@ -45,22 +45,21 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
       <div>
         <div
           ref={setNodeRefDroppable}
-          className={`flex items-center justify-between border-b border-gray-300 px-4 py-2 ${
+          className={`flex items-center justify-between border-b border-gray-300 px-6 py-4 ${
             isOver && "border-b-2 border-purple-400"
           }`}
         >
           <div
             className="flex items-center"
-            style={{ paddingLeft: `${depth * 16}px` }}
+            style={{ marginLeft: `${depth * 16}px` }}
           >
             <RiDragMove2Fill
               {...listeners}
-              size={24}
-              className="fill-gray-500 mr-2 cursor-pointer"
+              className="fill-gray-400 cursor-pointer size-5"
             />
-            <div>
-              <span className="mr-2 font-bold">{menuItem.label}</span>
-              <div>{menuItem.url}</div>
+            <div className="ml-4">
+              <h4 className="mb-1">{menuItem.label}</h4>
+              <span>{menuItem.url}</span>
             </div>
           </div>
           {!isDragging && (

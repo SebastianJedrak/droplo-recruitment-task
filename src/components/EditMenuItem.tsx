@@ -89,7 +89,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
         </form>
         <div className="flex justify-end p-3 pl-6">
           <RiDeleteBin6Line
-            className="fill-gray-500 size-4 cursor-pointer fill-gray-400"
+            className="size-4 cursor-pointer fill-gray-400"
             onClick={() => {
               closeNewMenu(id);
             }}

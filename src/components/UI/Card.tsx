@@ -2,7 +2,7 @@ import React from "react";
 
 interface CardProps {
   children: React.ReactNode;
-  backgroundColor: string;
+  backgroundColor: "white" | "gray" | "transparent";
 }
 
 const Card: React.FC<CardProps> = ({ backgroundColor, children }) => {
