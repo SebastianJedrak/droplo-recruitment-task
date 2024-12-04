@@ -51,7 +51,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
         >
           <div
             className="flex items-center"
-            style={{ marginLeft: `${depth * 16}px` }}
+            style={{ marginLeft: `${depth * 64}px` }}
           >
             <RiDragMove2Fill
               {...listeners}
