@@ -48,7 +48,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 1 }) => {
           className={`flex items-center justify-between px-6 py-4 
             ${!isOver && "border-b border-gray-200"} 
             ${isOver && "border-b-2 border-purple-700"}
-          
+            ${depth > 1 && "border-l border-l-gray-200"}
           `}
         >
           <div className="flex items-center">
