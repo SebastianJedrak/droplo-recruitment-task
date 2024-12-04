@@ -31,7 +31,7 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
   parentId,
   menuItem,
 }) => {
-  const { addMenu, addMenuItem, closeNewMenu, editMenuItem } = useAppContext();
+  const { addMenu, changeMenuItem, closeNewMenu  } = useAppContext();
 
   const {
     register,
@@ -50,10 +50,10 @@ const EditMenuItem: React.FC<EditMenuItemProps> = ({
       addMenu({ ...data, id: generateId(), subItems: [] });
     }
     if (parentId !== null && menuItem === undefined) {
-      addMenuItem({ ...data, id: generateId(), subItems: [] }, parentId);
+      changeMenuItem({ ...data, id: generateId(), subItems: [] }, parentId, "add");
     }
     if (parentId !== null && menuItem !== undefined) {
-      editMenuItem({ ...menuItem, ...data }, parentId);
+      changeMenuItem({ ...menuItem, ...data }, parentId, "edit");
     }
     closeNewMenu(id);
   };
