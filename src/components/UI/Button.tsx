@@ -23,12 +23,12 @@ const Button: React.FC<ButtonProps> = ({
       className={`px-4 py-2  rounded-lg shadow-custom-shadow flex items-center
         ${
           style === "outline" &&
-          "border border-gray-300 hover:bg-gray-100 hover:text-purple-700 text-gray-500"
+          "border bg-white border-gray-300 hover:bg-gray-100 hover:text-purple-700 text-gray-500"
         }
 
         ${
           style === "color-outline" &&
-          "border border-purple-700 hover:bg-gray-100 text-purple-700"
+          "border bg-white border-purple-700 hover:bg-gray-100 text-purple-700"
         }
 
         ${
