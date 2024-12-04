@@ -40,19 +40,16 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
       ref={setNodeRefDraggable}
       {...attributes}
       style={dndStyle}
-      className={`${isDragging && "opacity-75"} cursor-default`}
+      className={`${isDragging && "opacity-75"} cursor-default bg-white`}
     >
-      <div className="">
+      <div>
         <div
           ref={setNodeRefDroppable}
           className={`flex items-center justify-between border-b border-gray-300 px-6 py-4 ${
             isOver && "border-b-2 border-purple-700"
           }`}
         >
-          <div
-            className="flex items-center"
-            style={{ marginLeft: `${depth * 64}px` }}
-          >
+          <div className="flex items-center">
             <RiDragMove2Fill
               {...listeners}
               className="fill-gray-400 cursor-pointer size-5"
@@ -104,7 +101,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, depth = 0 }) => {
         )}
 
         {!isDragging && (
-          <ul>
+          <ul className="bg-gray-50" style={{ paddingLeft: `${depth * 64}px` }}>
             {menuItem.subItems &&
               menuItem.subItems.length > 0 &&
               menuItem.subItems.map((nestedMenuItem) => (
