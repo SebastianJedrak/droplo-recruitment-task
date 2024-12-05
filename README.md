@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recruitment Project for Droplo
+
+## About
+
+This project was created as part of the recruitment process at <b>Droplo</b>. Thank you for the opportunity to participate. I hope this work meets your expectations.
+
+## How to Clone and Install
+
+### Clone the Repository
+
+To clone the repository, run the following command in your terminal:
+
+```bash
+git clone https://github.com/SebastianJedrak/droplo-recruitment-task.git
+cd droplo-recruitment-task
+```
+
+### Install Dependencies
+
+After cloning the repository and nabigating to the project folder, install the dependencies using the following command:
+
+```bash
+npm install --legacy-peer-deps
+```
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Form Management
 
-## Learn More
+This project includes a robust **Form Management** feature. You can easily add new forms and modify their content as needed.
 
-To learn more about Next.js, take a look at the following resources:
+### Drag and Drop
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project supports an interactive **Drag and Drop** feature. The DND Icon <img src="https://github.com/user-attachments/assets/0726c372-6ff6-43d8-9634-a5ed41c6d4d9" width="20px" height="20px"/> enables users to "grab" elements and "drop" them into any other form.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
+I would be happy to receive any feedback from you regarding this project. Please feel free to reach out to me at:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Email:** [jedrak.sebastian@gmail.com](mailto:jedrak.sebastian@gmail.com)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
