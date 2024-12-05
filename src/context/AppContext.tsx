@@ -8,7 +8,11 @@ interface AppContextType {
   menus: MenusType;
   addMenu: (data: MenuItemType) => void;
   dropSortMenu: (draggedItemId: string, droppedParentId: string) => void;
-  changeMenuItem: (data: MenuItemType, parentId: string, action: "edit" | "add") => void;
+  changeMenuItem: (
+    data: MenuItemType,
+    parentId: string,
+    action: "edit" | "add"
+  ) => void;
   deleteMenuItem: (id: string) => void;
 
   newMenuForms: formsType;
@@ -96,9 +100,10 @@ const sampleMenus: MenusType = [
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  //Menus ctx
+  //MENUS CTX
   const [menus, setMenus] = useState<MenusType>(sampleMenus);
 
+  //add single new menu with one subItem
   const addMenu = (data: MenuItemType) => {
     setMenus((menus: MenusType) => [
       ...menus,
@@ -109,16 +114,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     ]);
   };
 
+  //handle the drag and drop feature
   const dropSortMenu = (draggedItemId: string, droppedParentId: string) => {
+    //you need to find an item to pass it to changeMenuItem
     const findRecursive = (
       menuItems: MenuItemType[] | MenusType
     ): MenuItemType | undefined => {
       for (const item of menuItems) {
         if (item.id === draggedItemId) {
+          //return result
           return item as MenuItemType;
         }
 
         if (item.subItems && item.subItems.length > 0) {
+          //search in nested items
           const found = findRecursive(item.subItems);
           if (found) {
             return found;
@@ -126,25 +135,28 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         }
       }
 
+      //return undefined if not found
       return undefined;
     };
 
     const draggedItem: MenuItemType | undefined = findRecursive(menus);
     if (!draggedItem) return;
 
+    //delete item from original form and add it to dropped place
     deleteMenuItem(draggedItemId);
-
     changeMenuItem(draggedItem, droppedParentId, "add");
   };
 
+  //handle edit and add actions
   const changeMenuItem = (
     data: MenuItemType,
     parentId: string,
     action: "edit" | "add"
   ) => {
-    const addRecursive = (items: MenuItemType[]): MenuItemType[] => {
+    const changeRecursive = (items: MenuItemType[]): MenuItemType[] => {
       return items.map((item) => {
         if (item.id === parentId) {
+          //change correct item, depends on action
           if (action === "add") {
             return {
               ...item,
@@ -155,13 +167,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
             return data;
           }
 
+          //return item fallback
           return { ...item };
         }
 
+        //continue changeRecursive if not found correct item 
         if (item.subItems && item.subItems.length > 0) {
           return {
             ...item,
-            subItems: addRecursive(item.subItems),
+            subItems: changeRecursive(item.subItems),
           };
         }
 
@@ -172,6 +186,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     setMenus((menus: MenusType) => {
       let parentFound = false;
 
+      //check if correct item is in first level and use parentFound if is
       const newMenus = menus.map((menu) => {
         if (menu.id === parentId) {
           parentFound = true;
@@ -185,11 +200,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         return menu;
       });
 
+      //start changeRecursive if correct item is not first level
       if (!parentFound) {
         return newMenus.map((menu) => {
           return {
             ...menu,
-            subItems: addRecursive(menu.subItems),
+            subItems: changeRecursive(menu.subItems),
           };
         });
       }
@@ -198,11 +214,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
+  //handle delete action
   const deleteMenuItem = (id: string) => {
     setMenus((menus: MenusType) => {
       const deleteRecursive = (items: MenuItemType[]): MenuItemType[] => {
+        //check if one of subItems is the target
         const itemFound = items.some((item) => item.id === id);
 
+        //delete the target
         if (itemFound) {
           return items.filter((item) => item.id !== id);
         }
@@ -211,6 +230,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
           if (item.subItems && item.subItems.length > 0) {
             return {
               ...item,
+              //continue recursive for children
               subItems: deleteRecursive(item.subItems),
             };
           }
@@ -221,6 +241,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
       const newMenus = menus.map((menu) => {
         return {
           ...menu,
+          //start recursive for children
           subItems: deleteRecursive(menu.subItems),
         };
       });
@@ -232,13 +253,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   //Forms ctx
   const [newMenuForms, setNewMenuForms] = useState<formsType>([]);
 
+  //adds addNewMenu form to correct place based on parentId
   const addNewMenu = (parentId: string | null, menuItem?: MenuItemType) => {
     setNewMenuForms((menuForms) => [
       ...menuForms,
-      { id: generateId(), parentId: parentId, menuItem: menuItem },
+      { id: generateId(), parentId, menuItem},
     ]);
   };
 
+  //handle closing menu
   const closeNewMenu = (id: string) => {
     setNewMenuForms((menuForms) => menuForms.filter((form) => form.id !== id));
   };
@@ -263,6 +286,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
 export const useAppContext = (): AppContextType => {
   const context = useContext(AppContext);
+  //throw error if context is used outside Provider
   if (!context) {
     throw new Error("useAppContext must be used within an AppProvider");
   }
