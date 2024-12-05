@@ -35,6 +35,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Features
 
+### 3. Sample Data
+
+The project is pre-filled with **sample data** to streamline the review process. This allows you to explore its features without the need to input data manually.
+
 ### Form Management
 
 This project includes a robust **Form Management** feature. You can easily add new forms and modify their content as needed.
