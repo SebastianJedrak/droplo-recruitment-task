@@ -47,6 +47,14 @@ This project includes a robust **Form Management** feature. You can easily add n
 
 The project supports an interactive **Drag and Drop** feature. The DND Icon <img src="https://github.com/user-attachments/assets/0726c372-6ff6-43d8-9634-a5ed41c6d4d9" width="20px" height="20px"/> enables users to "grab" elements and "drop" them into any other form.
 
+### State Management
+
+The application's state is managed using **useContext** and is accessible globally through the `AppContext`. You can find its implementation in the following file:  
+
+```plaintext
+app/context/AppContext.tsx
+```
+
 ## Contact
 
 I would be happy to receive any feedback from you regarding this project. Please feel free to reach out to me at:
