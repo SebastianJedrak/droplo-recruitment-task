@@ -17,7 +17,7 @@ cd droplo-recruitment-task
 
 ### Install Dependencies
 
-After cloning the repository and nabigating to the project folder, install the dependencies using the following command:
+After cloning the repository and navigating to the project folder, install the dependencies using the following command:
 
 ```bash
 npm install --legacy-peer-deps
